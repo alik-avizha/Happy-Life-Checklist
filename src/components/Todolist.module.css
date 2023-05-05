@@ -1,0 +1,51 @@
+/*.todolist {*/
+/*    border: 2px solid #704102;*/
+/*    padding: 20px;*/
+/*    background-color: peachpuff;*/
+/*    border-radius: 20px;*/
+/*    position: relative;*/
+/*}*/
+
+/*.todolist_h {*/
+/*    text-align: center;*/
+/*}*/
+
+/*.errorInput {*/
+/*    border: 1px solid red;*/
+/*}*/
+
+/*.errorMessage {*/
+/*    color: red;*/
+/*}*/
+
+/*.deleteTask {*/
+/*    margin-left: 6px;*/
+/*    margin-top: -4px;*/
+/*    width: 20px;*/
+/*    height: 20px;*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*.activeButton {*/
+/*    background-color: #dab309;*/
+/*}*/
+
+/*.completedTask {*/
+/*    opacity: 0.5;*/
+/*}*/
+
+/*.buttonWrapper {*/
+/*    margin-bottom: 20px;*/
+/*}*/
+
+/*.basketWrapper {*/
+/*    position: absolute;*/
+/*    bottom: 0;*/
+/*    right: 0;*/
+/*}*/
+
+/*.basket {*/
+/*    width: 30px;*/
+/*    height: 30px;*/
+/*    cursor: pointer;*/
+/*}*/
