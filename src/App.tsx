@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import './App.css';
 import {Todolist} from './components/Todolist';
 import {AddItemForm} from './components/AddItemForm';
@@ -30,15 +30,14 @@ export type TasksType = {
     [key: string]: TaskType[]
 }
 
-
 function App() {
 
     const todoLists = useSelector<AppRootType, TodoListsType[]>(state => state.todolists)
     const dispatch = useDispatch()
 
-    const addTodoList = (title: string) => {
+    const addTodoList = useCallback((title: string) => {
         dispatch(addTodoListAC(title))
-    }
+    },[dispatch])
 
     return (
         <div className="App">
@@ -65,11 +64,9 @@ function App() {
                 </Grid>
                 <Grid container spacing={3}>
                     {todoLists.map(el => {
-
-                        return (<Grid item>
+                        return (<Grid item key={el.todoId}>
                                 <Paper style={{padding: '10px'}}>
                                     <Todolist
-                                        key={el.todoId}
                                         todoInfo={el}
                                     />
                                 </Paper>
