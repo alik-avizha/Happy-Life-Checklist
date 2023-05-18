@@ -21,6 +21,7 @@ export const Todolist = (props: TodolistPropsType) => {
     const {todoId, title, filter} = props.todoInfo
 
     const tasks = useSelector<AppRootType, TaskType[]>(state => state.tasks[todoId])
+
     const dispatch = useDispatch()
 
     let filteredTasks = tasks
@@ -46,6 +47,7 @@ export const Todolist = (props: TodolistPropsType) => {
     const onClickCompletedHandler = useCallback(() => {
         dispatch(changeFilterValueAC(todoId, 'Completed'))
     }, [dispatch, todoId])
+
 
     if (filter === 'Active') {
         filteredTasks = tasks.filter(f => !f.isDone)

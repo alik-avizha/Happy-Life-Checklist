@@ -30,7 +30,7 @@ export type TasksType = {
     [key: string]: TaskType[]
 }
 
-function App() {
+export function App() {
 
     const todoLists = useSelector<AppRootType, TodoListsType[]>(state => state.todolists)
     const dispatch = useDispatch()
