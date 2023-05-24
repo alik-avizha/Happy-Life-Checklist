@@ -1,7 +1,7 @@
-import React, {useCallback} from 'react';
-import './App.css';
-import {Todolist} from './components/Todolist';
-import {AddItemForm} from './components/AddItemForm';
+import React from 'react';
+import '../../App.css';
+import {Todolist} from '../Todolist/Todolist';
+import {AddItemForm} from '../AddItemForm/AddItemForm';
 import Container from '@mui/material/Container';
 import AppBar from '@mui/material/AppBar';
 import IconButton from '@mui/material/IconButton';
@@ -11,9 +11,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import {useDispatch, useSelector} from 'react-redux';
-import {AppRootType} from './reducers/state';
-import {addTodoListAC} from './reducers/todolistReducer';
+import {useApp} from './hooks/useApp';
 
 export type FilterType = 'All' | 'Active' | 'Completed'
 export type TodoListsType = {
@@ -32,12 +30,7 @@ export type TasksType = {
 
 export function App() {
 
-    const todoLists = useSelector<AppRootType, TodoListsType[]>(state => state.todolists)
-    const dispatch = useDispatch()
-
-    const addTodoList = useCallback((title: string) => {
-        dispatch(addTodoListAC(title))
-    },[dispatch])
+   const {todoLists, addTodoList} = useApp()
 
     return (
         <div className="App">
@@ -78,5 +71,4 @@ export function App() {
         </div>
     );
 }
-
 export default App;

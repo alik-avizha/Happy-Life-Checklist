@@ -1,5 +1,5 @@
 import {v1} from 'uuid';
-import {TasksType} from '../App';
+import {TasksType} from '../components/App/App';
 import {changeStatusCheckedAC, changeTaskTitleAC, deleteTaskAC, tasksReducer} from './tasksReducer';
 
 let todolistId1 = v1();

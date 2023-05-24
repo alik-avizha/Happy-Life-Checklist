@@ -1,17 +1,17 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import {action} from '@storybook/addon-actions'
-import {Task} from '../components/Task';
+import {Task} from '../components/Task/Task';
 import {ReduxStoreProviderDecorator} from './decorators/ReduxStoreProviderDecorator';
 import {useDispatch, useSelector} from 'react-redux';
 import {changeStatusCheckedAC, changeTaskTitleAC} from '../reducers/tasksReducer';
 import React, {ChangeEvent, useCallback} from 'react';
-import s from '../components/Todolist.module.css';
+import s from '../components/Todolist/Todolist.module.css';
 import Checkbox from '@mui/material/Checkbox';
-import {EditableSpan} from '../components/EditableSpan';
+import {EditableSpan} from '../components/EditableSpan/EditableSpan';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {AppRootType} from '../reducers/state';
-import {TaskType} from '../App';
+import {TaskType} from '../components/App/App';
 
 const meta: Meta<typeof Task> = {
   title: 'TodoLists/Task',

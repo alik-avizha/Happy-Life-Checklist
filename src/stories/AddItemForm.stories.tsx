@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from '@storybook/react';
 import {action} from '@storybook/addon-actions'
-import {AddItemForm} from '../components/AddItemForm';
+import {AddItemForm} from '../components/AddItemForm/AddItemForm';
 
 const meta: Meta<typeof AddItemForm> = {
   title: 'TodoLists/AddItemForm',
