@@ -1,5 +1,4 @@
 import React from 'react';
-import {TodoListsType} from '../App/App';
 import {AddItemForm} from '../AddItemForm/AddItemForm';
 import {EditableSpan} from '../EditableSpan/EditableSpan';
 import IconButton from '@mui/material/IconButton';
@@ -7,15 +6,16 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import {Task} from '../Task/Task';
 import {useTodolist} from './useTodolist';
+import {TodolistDomainType} from '../../reducers/todolistReducer';
 
 
 type TodolistPropsType = {
-    todoInfo: TodoListsType
+    todoInfo: TodolistDomainType
 }
 
 export const Todolist = (props: TodolistPropsType) => {
 
-    const {todoId, title, filter} = props.todoInfo
+    const {id, title, filter} = props.todoInfo
 
     const {
         filteredTasks,
@@ -25,13 +25,13 @@ export const Todolist = (props: TodolistPropsType) => {
         onClickAllHandler,
         onClickActiveHandler,
         onClickCompletedHandler
-    } = useTodolist(todoId, title, filter)
+    } = useTodolist(id, title, filter)
 
     const mappingTasks = filteredTasks.map(t => {
         return (
             <Task
                 key={t.id}
-                todoId={todoId}
+                todoId={id}
                 task={t}
             />
         )

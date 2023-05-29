@@ -12,20 +12,11 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import {useApp} from './hooks/useApp';
+import {TaskTypeAPI} from '../../api/todolist-api';
 
-export type FilterType = 'All' | 'Active' | 'Completed'
-export type TodoListsType = {
-    todoId: string
-    title: string
-    filter: FilterType
-}
-export type TaskType = {
-    id: string,
-    title: string,
-    isDone: boolean
-}
+
 export type TasksType = {
-    [key: string]: TaskType[]
+    [key: string]: TaskTypeAPI[]
 }
 
 export function App() {
@@ -57,7 +48,7 @@ export function App() {
                 </Grid>
                 <Grid container spacing={3}>
                     {todoLists.map(el => {
-                        return (<Grid item key={el.todoId}>
+                        return (<Grid item key={el.id}>
                                 <Paper style={{padding: '10px'}}>
                                     <Todolist
                                         todoInfo={el}

@@ -1,25 +1,24 @@
 import {v1} from 'uuid';
-import {TodoListsType} from '../components/App/App';
 import {
     addTodoListAC,
     changeFilterValueAC,
     changeTodoListTitleAC,
-    deleteTodoListAC,
+    deleteTodoListAC, TodolistDomainType,
     todolistReducer
 } from './todolistReducer';
 
 let todolistId1: string;
 let todolistId2: string;
 
-let startState: Array<TodoListsType>
+let startState: Array<TodolistDomainType>
 
 beforeEach(() => {
     todolistId1 = v1();
     todolistId2 = v1();
 
     startState = [
-        {todoId: todolistId1, title: 'What to learn', filter: 'All'},
-        {todoId: todolistId2, title: 'What to buy', filter: 'All'},
+        {id: todolistId1, title: 'What to learn', filter: 'All', order: 0, addedDate: ''},
+        {id: todolistId2, title: 'What to buy', filter: 'All', order: 1, addedDate: ''},
     ]
 })
 
@@ -27,7 +26,7 @@ test('correct todoList should be removed', () => {
     const endState = todolistReducer(startState, deleteTodoListAC(todolistId1))
 
     expect(endState.length).toBe(1);
-    expect(endState[0].todoId).toBe(todolistId2);
+    expect(endState[0].id).toBe(todolistId2);
 });
 
 test('correct todoList should be add', () => {
