@@ -1,7 +1,6 @@
 import {v1} from 'uuid';
-import {changeStatusCheckedAC, changeTaskTitleAC, deleteTaskAC, tasksReducer} from './tasksReducer';
-import {TasksType} from '../components/App/App';
-import {TaskPriorities, TaskStatuses} from '../api/todolist-api';
+import {deleteTaskAC, tasksReducer, TasksType, updateTaskAC} from './tasksReducer';
+import {TaskPriorities, TaskStatuses} from '../dal/todolist-api';
 
 let todolistId1 = v1();
 let todolistId2 = v1();
@@ -34,7 +33,7 @@ test('correct tasks should be removed', () => {
 test('correct tasks Status should be changed', () => {
 
     let newStatus = TaskStatuses.New
-    const endState = tasksReducer(startState, changeStatusCheckedAC(todolistId1,startState[todolistId1][0].id, newStatus))
+    const endState = tasksReducer(startState, updateTaskAC(todolistId1,startState[todolistId1][0].id, {status: newStatus}))
 
     expect(endState[todolistId1][0].status).toBe(TaskStatuses.New);
 });
@@ -42,7 +41,7 @@ test('correct tasks Status should be changed', () => {
 test('correct tasks Title should be changed', () => {
 
     let newTitle = 'Hello'
-    const endState = tasksReducer(startState, changeTaskTitleAC(todolistId1,startState[todolistId1][0].id, newTitle))
+    const endState = tasksReducer(startState, updateTaskAC(todolistId1,startState[todolistId1][0].id, {title: newTitle}))
 
     expect(endState[todolistId1][0].title).toBe('Hello');
 });

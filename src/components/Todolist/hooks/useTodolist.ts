@@ -1,28 +1,31 @@
-import {useDispatch, useSelector} from 'react-redux';
-import {AppRootType} from '../../reducers/state';
-import {useCallback} from 'react';
-import {addTaskAC} from '../../reducers/tasksReducer';
-import {changeFilterValueAC, changeTodoListTitleAC, deleteTodoListAC, FilterType} from '../../reducers/todolistReducer';
-import {TaskStatuses, TaskTypeAPI} from '../../api/todolist-api';
+import {useAppDispatch, useAppSelector} from '../../../bll/state';
+import {useCallback, useEffect} from 'react';
+import {createTaskTC, fetchTasksTC} from '../../../bll/tasksReducer';
+import {changeFilterValueAC, changeTodolistTitleTC, deleteTodolistsTC, FilterType} from '../../../bll/todolistReducer';
+import {TaskStatuses} from '../../../dal/todolist-api';
 
 export const useTodolist = (todoId: string, title: string, filter: FilterType) => {
 
-    const tasks = useSelector<AppRootType, TaskTypeAPI[]>(state => state.tasks[todoId])
+    const tasks = useAppSelector(state => state.tasks[todoId])
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
+
+    useEffect(()=>{
+        dispatch(fetchTasksTC(todoId))
+    },[])
 
     let filteredTasks = tasks
 
     const addTaskHandler = useCallback((title: string) => {
-        dispatch(addTaskAC(todoId, title))
+        dispatch(createTaskTC(todoId, title))
     }, [todoId, dispatch])
 
     const deleteTodoListHandler = useCallback(() => {
-        dispatch(deleteTodoListAC(todoId))
+        dispatch(deleteTodolistsTC(todoId))
     }, [dispatch, todoId])
 
     const changeTodoListTitle = useCallback((title: string) => {
-        dispatch(changeTodoListTitleAC(todoId, title))
+        dispatch(changeTodolistTitleTC(todoId, title))
     }, [dispatch, todoId])
 
     const onClickAllHandler = useCallback(() => {
@@ -41,5 +44,13 @@ export const useTodolist = (todoId: string, title: string, filter: FilterType) =
     if (filter === 'Completed') {
         filteredTasks = tasks.filter(f => f.status === TaskStatuses.Completed)
     }
-    return {filteredTasks, addTaskHandler, deleteTodoListHandler, changeTodoListTitle, onClickAllHandler, onClickActiveHandler, onClickCompletedHandler}
+    return {
+        filteredTasks,
+        addTaskHandler,
+        deleteTodoListHandler,
+        changeTodoListTitle,
+        onClickAllHandler,
+        onClickActiveHandler,
+        onClickCompletedHandler
+    }
 }

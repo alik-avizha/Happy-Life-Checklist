@@ -1,19 +1,19 @@
-import {useDispatch} from 'react-redux';
-import {changeStatusCheckedAC, changeTaskTitleAC, deleteTaskAC} from '../../reducers/tasksReducer';
+import {deleteTaskTC, updateTaskTC} from '../../bll/tasksReducer';
 import {ChangeEvent, useCallback} from 'react';
-import {TaskStatuses} from '../../api/todolist-api';
+import {TaskStatuses} from '../../dal/todolist-api';
+import {useAppDispatch} from '../../bll/state';
 
 export const useTask = (todoId: string, taskId: string) => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const deleteHandler = () => {
-        dispatch(deleteTaskAC(todoId, taskId))
+        dispatch(deleteTaskTC(todoId, taskId))
     }
     const onChangeStatusTask = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(changeStatusCheckedAC(todoId, taskId, e.currentTarget.checked ? TaskStatuses.Completed: TaskStatuses.New))
+        dispatch(updateTaskTC(todoId, taskId, e.currentTarget.checked ? {status: TaskStatuses.Completed}: {status: TaskStatuses.New}))
     }
-    const onChangeTitle = useCallback((newValue: string) => {
-        dispatch(changeTaskTitleAC(todoId, taskId, newValue))
+    const onChangeTitle = useCallback((newTitle: string) => {
+        dispatch(updateTaskTC(todoId, taskId, {title: newTitle}))
     },[dispatch,todoId,taskId])
 
     return {deleteHandler,onChangeStatusTask, onChangeTitle}

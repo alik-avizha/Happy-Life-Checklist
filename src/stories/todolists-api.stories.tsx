@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {tasksAPI, todolistAPI} from '../api/todolist-api';
+import {tasksAPI, todolistAPI} from '../dal/todolist-api';
 
 export default {
     title: 'API'
@@ -98,7 +98,6 @@ export const UpdateTask = () => {
     const [taskId, setTaskId] = useState<string>('')
     const [title, setTaskTitle] = useState<string>('')
     const [description, setDescription] = useState<string>('')
-    const [completed, setCompleted] = useState<boolean>(false)
     const [status, setStatus] = useState<number>(0)
     const [priority, setPriority] = useState<number>(0)
     const [startDate, setStartDate] = useState<string>('')
@@ -108,7 +107,6 @@ export const UpdateTask = () => {
         tasksAPI.updateTask(todoId, taskId, {
             title,
             description,
-            completed,
             status,
             priority,
             startDate,

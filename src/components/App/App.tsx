@@ -12,16 +12,11 @@ import Button from '@mui/material/Button';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
 import {useApp} from './hooks/useApp';
-import {TaskTypeAPI} from '../../api/todolist-api';
 
-
-export type TasksType = {
-    [key: string]: TaskTypeAPI[]
-}
 
 export function App() {
 
-   const {todoLists, addTodoList} = useApp()
+    const {todoLists, addTodoList} = useApp()
 
     return (
         <div className="App">
@@ -62,4 +57,5 @@ export function App() {
         </div>
     );
 }
+
 export default App;

@@ -3,14 +3,14 @@ import {action} from '@storybook/addon-actions'
 import {Task} from '../components/Task/Task';
 import {ReduxStoreProviderDecorator} from './decorators/ReduxStoreProviderDecorator';
 import {useDispatch, useSelector} from 'react-redux';
-import {changeStatusCheckedAC, changeTaskTitleAC} from '../reducers/tasksReducer';
 import React, {ChangeEvent, useCallback} from 'react';
 import Checkbox from '@mui/material/Checkbox';
 import {EditableSpan} from '../components/EditableSpan/EditableSpan';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {AppRootType} from '../reducers/state';
-import {TaskStatuses, TaskTypeAPI} from '../api/todolist-api';
+import {AppRootType} from '../bll/state';
+import {TaskStatuses, TaskTypeAPI} from '../dal/todolist-api';
+import {updateTaskAC} from '../bll/tasksReducer';
 
 const meta: Meta<typeof Task> = {
   title: 'TodoLists/Task',
@@ -36,10 +36,10 @@ const TaskWithRedux = () => {
   }*/
 
   const onChangeStatusTask = (e: ChangeEvent<HTMLInputElement>) => {
-    dispatch(changeStatusCheckedAC(todoId, task.id, e.currentTarget.checked ? TaskStatuses.Completed: TaskStatuses.New))
+    dispatch(updateTaskAC(todoId, task.id, e.currentTarget.checked ? {status: TaskStatuses.Completed}: {status: TaskStatuses.New}))
   }
   const onChangeTitle = useCallback((newValue: string) => {
-    dispatch(changeTaskTitleAC(todoId, task.id, newValue))
+    dispatch(updateTaskAC(todoId, task.id, {title: newValue}))
   },[dispatch,todoId,task.id])
 
   return (
