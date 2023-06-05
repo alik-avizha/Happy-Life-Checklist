@@ -1,7 +1,7 @@
-import {deleteTaskTC, updateTaskTC} from '../../bll/tasksReducer';
+import {deleteTaskTC, updateTaskTC} from '../../../../../bll/tasksReducer';
 import {ChangeEvent, useCallback} from 'react';
-import {TaskStatuses} from '../../dal/todolist-api';
-import {useAppDispatch} from '../../bll/state';
+import {TaskStatuses} from '../../../../../dal/todolist-api';
+import {useAppDispatch} from '../../../../../bll/state';
 
 export const useTask = (todoId: string, taskId: string) => {
     const dispatch = useAppDispatch()

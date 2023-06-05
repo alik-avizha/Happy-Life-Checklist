@@ -2,9 +2,9 @@ import React from 'react';
 import {Provider} from 'react-redux';
 import {combineReducers, legacy_createStore} from 'redux';
 import {v1} from 'uuid';
-import {tasksReducer} from '../../bll/tasksReducer';
-import {todolistReducer} from '../../bll/todolistReducer';
-import {AppRootType} from '../../bll/state';
+import {tasksReducer} from '../tasksReducer';
+import {todolistReducer} from '../todolistReducer';
+import {AppRootType} from '../state';
 import {TaskPriorities, TaskStatuses} from '../../dal/todolist-api';
 
 const rootReducer = combineReducers({
@@ -30,7 +30,6 @@ const initialGlobalState: AppRootType = {
 };
 
 export const storyBookStore = legacy_createStore(rootReducer, initialGlobalState);
-
 
 export const ReduxStoreProviderDecorator = (storyFn: () => React.ReactNode) => {
     return <Provider store={storyBookStore}>{storyFn()}</Provider>

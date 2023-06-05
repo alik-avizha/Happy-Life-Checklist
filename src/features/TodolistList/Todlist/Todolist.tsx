@@ -1,13 +1,12 @@
 import React from 'react';
-import {AddItemForm} from '../AddItemForm/AddItemForm';
-import {EditableSpan} from '../EditableSpan/EditableSpan';
+import {AddItemForm} from '../../../components/AddItemForm/AddItemForm';
+import {EditableSpan} from '../../../components/EditableSpan/EditableSpan';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
-import {Task} from '../Task/Task';
+import {Task} from './Task/Task';
 import {useTodolist} from './hooks/useTodolist';
-import {TodolistDomainType} from '../../bll/todolistReducer';
-
+import {TodolistDomainType} from '../../../bll/todolistReducer';
 
 type TodolistPropsType = {
     todoInfo: TodolistDomainType

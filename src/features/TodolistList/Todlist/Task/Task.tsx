@@ -1,10 +1,10 @@
 import React, {memo} from 'react';
 import Checkbox from '@mui/material/Checkbox';
-import {EditableSpan} from '../EditableSpan/EditableSpan';
+import {EditableSpan} from '../../../../components/EditableSpan/EditableSpan';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {useTask} from './useTask';
-import {TaskStatuses, TaskTypeAPI} from '../../dal/todolist-api';
+import {useTask} from './hooks/useTask';
+import {TaskStatuses, TaskTypeAPI} from '../../../../dal/todolist-api';
 
 type TaskPropsType = {
     todoId: string

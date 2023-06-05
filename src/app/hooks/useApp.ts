@@ -1,6 +1,6 @@
-import {useAppDispatch, useAppSelector} from '../../../bll/state';
+import {useAppDispatch, useAppSelector} from '../../bll/state';
 import {useCallback, useEffect} from 'react';
-import {addTodolistsTC, fetchTodolistsTC} from '../../../bll/todolistReducer';
+import {addTodolistsTC, fetchTodolistsTC} from '../../bll/todolistReducer';
 
 export const useApp = () => {
     const todoLists = useAppSelector(state => state.todolists)

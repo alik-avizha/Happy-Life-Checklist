@@ -1,14 +1,6 @@
-import {v1} from 'uuid';
 import {TaskPriorities, tasksAPI, TaskStatuses, TaskTypeAPI, UpdateTaskType} from '../dal/todolist-api';
-
-import {Dispatch} from 'redux';
 import {AddTodoListACType, DeleteTodoListACType, SetTodolistsACType} from './todolistReducer';
-import {AppRootType} from './state';
-
-
-export type TasksType = {
-    [key: string]: TaskTypeAPI[]
-}
+import {AppRootType, AppThunk} from './state';
 
 const initialState: TasksType = {}
 
@@ -17,19 +9,10 @@ export const tasksReducer = (state = initialState, action: TasksActionsType): Ta
         case 'SET-TASKS':
             return {...state, [action.todolistId]: action.tasks}
         case 'ADD-TASK':
-            const newTask: TaskTypeAPI = {
-                description: '',
-                title: action.payload.newTitle,
-                status: TaskStatuses.New,
-                priority: TaskPriorities.Hi,
-                startDate: '',
-                deadline: '',
-                id: v1(),
-                todoListId: action.payload.todolistId,
-                order: 0,
-                addedDate: ''
+            return {
+                ...state,
+                [action.payload.task.todoListId]: [action.payload.task, ...state[action.payload.task.todoListId]]
             }
-            return {...state, [action.payload.todolistId]: [newTask, ...state[action.payload.todolistId]]}
         case 'DELETE-TASK':
             return {
                 ...state,
@@ -39,7 +22,8 @@ export const tasksReducer = (state = initialState, action: TasksActionsType): Ta
             return {
                 ...state,
                 [action.payload.todolistId]: state[action.payload.todolistId].map(el => el.id === action.payload.id ? {
-                    ...el, ...action.payload.data} : el)
+                    ...el, ...action.payload.data
+                } : el)
             }
         case 'SET-TODOLISTS': {
             const stateCopy = {...state}
@@ -59,84 +43,54 @@ export const tasksReducer = (state = initialState, action: TasksActionsType): Ta
     }
 }
 
-export type TasksActionsType =
-    DeleteTaskACType
-    | AddTodoListACType
-    | UpdateTaskACType
-    | DeleteTodoListACType
-    | AddTaskACType
-    | SetTodolistsACType
-    | SetTasksACType
+//action creators
+export const deleteTaskAC = (todolistId: string, id: string) => ({
+    type: 'DELETE-TASK',
+    payload: {
+        todolistId,
+        id
+    }
+}) as const
+export const updateTaskAC = (todolistId: string, id: string, data: UpdateTaskModelFlex) => ({
+    type: 'UPDATE-TASK',
+    payload: {
+        todolistId,
+        id,
+        data
+    }
+}) as const
+export const addTaskAC = (task: TaskTypeAPI) => ({
+    type: 'ADD-TASK',
+    payload: {
+        task
+    }
+}) as const
+export const setTasksAC = (todolistId: string, tasks: TaskTypeAPI[]) => ({
+    type: 'SET-TASKS',
+    todolistId,
+    tasks
+}) as const
 
-type DeleteTaskACType = ReturnType<typeof deleteTaskAC>
-export const deleteTaskAC = (todolistId: string, id: string) => {
-    return {
-        type: 'DELETE-TASK',
-        payload: {
-            todolistId,
-            id
-        }
-    } as const
-}
-
-type UpdateTaskACType = ReturnType<typeof updateTaskAC>
-export const updateTaskAC = (todolistId: string, id: string, data: UpdateTaskModelFlex) => {
-    return {
-        type: 'UPDATE-TASK',
-        payload: {
-            todolistId,
-            id,
-            data
-        }
-    } as const
-}
-
-type AddTaskACType = ReturnType<typeof addTaskAC>
-export const addTaskAC = (todolistId: string, newTitle: string) => {
-    return {
-        type: 'ADD-TASK',
-        payload: {
-            todolistId,
-            newTitle
-        }
-    } as const
-}
-
-type SetTasksACType = ReturnType<typeof setTasksAC>
-export const setTasksAC = (todolistId: string, tasks: TaskTypeAPI[]) => {
-    return {type: 'SET-TASKS', todolistId, tasks} as const
-}
-
-export const fetchTasksTC = (todolistId: string) => (dispatch: Dispatch) => {
+//thunk creators
+export const fetchTasksTC = (todolistId: string): AppThunk => (dispatch) => {
     tasksAPI.getTasks(todolistId)
         .then((res) => {
             dispatch(setTasksAC(todolistId, res.data.items))
         })
 }
-export const deleteTaskTC = (todolistId: string, taskId: string) => (dispatch: Dispatch) => {
+export const deleteTaskTC = (todolistId: string, taskId: string): AppThunk => (dispatch) => {
     tasksAPI.deleteTask(todolistId, taskId)
         .then(() => {
             dispatch(deleteTaskAC(todolistId, taskId))
         })
 }
-export const createTaskTC = (todolistId: string, title: string) => (dispatch: Dispatch) => {
+export const createTaskTC = (todolistId: string, title: string): AppThunk => (dispatch) => {
     tasksAPI.createTask(todolistId, title)
-        .then(() => {
-            dispatch(addTaskAC(todolistId, title))
+        .then((res) => {
+            dispatch(addTaskAC(res.data.data.item))
         })
 }
-
-
-type UpdateTaskModelFlex = {
-    title?: string
-    description?: string
-    status?: TaskStatuses
-    priority?: TaskPriorities
-    startDate?: string
-    deadline?: string
-}
-
-export const updateTaskTC = (todolistId: string, taskId: string, data: UpdateTaskModelFlex) => (dispatch: Dispatch, getState: () => AppRootType) => {
+export const updateTaskTC = (todolistId: string, taskId: string, data: UpdateTaskModelFlex): AppThunk => (dispatch, getState: () => AppRootType) => {
     const task = getState().tasks[todolistId].find(t => t.id === taskId)
     if (task) {
         const model: UpdateTaskType = {
@@ -155,4 +109,23 @@ export const updateTaskTC = (todolistId: string, taskId: string, data: UpdateTas
     }
 }
 
-
+//typing
+type UpdateTaskModelFlex = {
+    title?: string
+    description?: string
+    status?: TaskStatuses
+    priority?: TaskPriorities
+    startDate?: string
+    deadline?: string
+}
+export type TasksType = {
+    [key: string]: TaskTypeAPI[]
+}
+export type TasksActionsType =
+    | ReturnType<typeof deleteTaskAC>
+    | AddTodoListACType
+    | ReturnType<typeof updateTaskAC>
+    | DeleteTodoListACType
+    | ReturnType<typeof addTaskAC>
+    | SetTodolistsACType
+    | ReturnType<typeof setTasksAC>
