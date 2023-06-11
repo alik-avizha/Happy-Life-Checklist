@@ -5,8 +5,13 @@ import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
+import LinearProgress from '@mui/material/LinearProgress';
+import {useAppSelector} from '../../bll/state';
 
 export const Header = () => {
+
+    const status = useAppSelector(state => state.app.status)
+
     return (
         <AppBar position="static">
             <Toolbar>
@@ -20,10 +25,11 @@ export const Header = () => {
                     <MenuIcon/>
                 </IconButton>
                 <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
-                    News
+                    Todolist
                 </Typography>
                 <Button color="inherit">Login</Button>
             </Toolbar>
+            {status === 'loading' && <LinearProgress/>}
         </AppBar>
     )
 }

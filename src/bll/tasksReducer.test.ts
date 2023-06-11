@@ -10,14 +10,14 @@ let startState : TasksType
 beforeEach(() => {
     startState = {
         [todolistId1]: [
-            {id: v1(), title: 'HTML&CSS', status: TaskStatuses.Completed, todoListId: todolistId1, addedDate: '',deadline: '', order: 0, startDate: '', description: '', priority: TaskPriorities.Hi},
-            {id: v1(), title: 'JS', status: TaskStatuses.Completed, todoListId: todolistId1, addedDate: '',deadline: '', order: 1, startDate: '', description: '', priority: TaskPriorities.Hi},
-            {id: v1(), title: 'ReactJS', status: TaskStatuses.New, todoListId: todolistId1, addedDate: '',deadline: '', order: 2, startDate: '', description: '', priority: TaskPriorities.Hi},
+            {id: v1(), title: 'HTML&CSS', status: TaskStatuses.Completed, todoListId: todolistId1, addedDate: '',deadline: '', order: 0, startDate: '', description: '', priority: TaskPriorities.Hi, entityStatus: 'idle'},
+            {id: v1(), title: 'JS', status: TaskStatuses.Completed, todoListId: todolistId1, addedDate: '',deadline: '', order: 1, startDate: '', description: '', priority: TaskPriorities.Hi, entityStatus: 'idle'},
+            {id: v1(), title: 'ReactJS', status: TaskStatuses.New, todoListId: todolistId1, addedDate: '',deadline: '', order: 2, startDate: '', description: '', priority: TaskPriorities.Hi, entityStatus: 'idle'},
 
         ],
         [todolistId2]: [
-            {id: v1(), title: 'Rest API', status: TaskStatuses.Completed, todoListId: todolistId2, addedDate: '',deadline: '', order: 0, startDate: '', description: '', priority: TaskPriorities.Hi},
-            {id: v1(), title: 'GraphQL', status: TaskStatuses.New, todoListId: todolistId2, addedDate: '',deadline: '', order: 1, startDate: '', description: '', priority: TaskPriorities.Hi},
+            {id: v1(), title: 'Rest API', status: TaskStatuses.Completed, todoListId: todolistId2, addedDate: '',deadline: '', order: 0, startDate: '', description: '', priority: TaskPriorities.Hi, entityStatus: 'idle'},
+            {id: v1(), title: 'GraphQL', status: TaskStatuses.New, todoListId: todolistId2, addedDate: '',deadline: '', order: 1, startDate: '', description: '', priority: TaskPriorities.Hi, entityStatus: 'idle'},
         ]
     }
 

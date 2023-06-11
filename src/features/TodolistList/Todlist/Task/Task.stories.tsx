@@ -9,8 +9,8 @@ import {EditableSpan} from '../../../../components/EditableSpan/EditableSpan';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {AppRootType} from '../../../../bll/state';
-import {TaskStatuses, TaskTypeAPI} from '../../../../dal/todolist-api';
-import {updateTaskAC} from '../../../../bll/tasksReducer';
+import {TaskStatuses} from '../../../../dal/todolist-api';
+import {TaskDomainType, updateTaskAC} from '../../../../bll/tasksReducer';
 
 const meta: Meta<typeof Task> = {
   title: 'TodoLists/Task',
@@ -25,7 +25,7 @@ type Story = StoryObj<typeof Task>;
 
 const TaskWithRedux = () => {
 
-  let task = useSelector<AppRootType, TaskTypeAPI>(state => state.tasks['todolistId1'][0])
+  let task = useSelector<AppRootType, TaskDomainType>(state => state.tasks['todolistId1'][0])
 
   let todoId = 'todolistId1'
 
@@ -45,7 +45,7 @@ const TaskWithRedux = () => {
   return (
       <div>
         <Checkbox checked={task.status === TaskStatuses.Completed} onChange={onChangeStatusTask}/>
-        <EditableSpan title={task.title} onChange={onChangeTitle}/>
+        <EditableSpan title={task.title} onChange={onChangeTitle} disabled={task.entityStatus === 'loading'}/>
         <IconButton onClick={action('Task deleted')}>
           <DeleteIcon/>
         </IconButton>

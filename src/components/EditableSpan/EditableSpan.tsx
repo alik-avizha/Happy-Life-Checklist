@@ -5,11 +5,12 @@ import {useEditableSpan} from './hooks/useEditableSpan';
 type EditableSpanPropsType = {
     title: string
     onChange: (newTitle: string) => void
+    disabled: boolean
 }
 
 export const EditableSpan = memo((props: EditableSpanPropsType) => {
 
-    const {editMode, title, activateEditMode, activateViewMode, onChangeHandler} = useEditableSpan(props.title, props.onChange)
+    const {editMode, title, activateEditMode, activateViewMode, onChangeHandler} = useEditableSpan(props.title, props.onChange, props.disabled)
 
     return (
         editMode

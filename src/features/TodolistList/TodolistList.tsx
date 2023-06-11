@@ -1,4 +1,4 @@
-import {useApp} from '../../app/hooks/useApp';
+import {useTodolistList} from '../../app/hooks/useApp';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import {AddItemForm} from '../../components/AddItemForm/AddItemForm';
@@ -7,7 +7,7 @@ import {Todolist} from './Todlist/Todolist';
 import React from 'react';
 
 export const TodolistList = () => {
-    const {todoLists, addTodoList} = useApp()
+    const {todoLists, addTodoList} = useTodolistList()
     return (
         <Container fixed>
             <Grid container style={{padding: '20px'}}>

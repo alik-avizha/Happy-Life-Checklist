@@ -6,6 +6,7 @@ import {useAddItemForm} from './hooks/useAddItemForm';
 
 type AddItemFormPropsType = {
     addItem: (title: string) => void
+    disabled?: boolean
 }
 
 export const AddItemForm = memo((props: AddItemFormPropsType) => {
@@ -15,8 +16,8 @@ export const AddItemForm = memo((props: AddItemFormPropsType) => {
     return (
             <div>
                 <TextField  variant="outlined" value={title} onChange={onChangeTaskHandler} onKeyDown={onKeyDownHandler}
-                            error={!!error} label="Enter your task" helperText={error}/>
-                <IconButton color='primary' onClick={addTaskHandler} > <AddBox/></IconButton>
+                            error={!!error} label="Enter your task" helperText={error} disabled={props.disabled}/>
+                <IconButton color='primary' onClick={addTaskHandler} disabled={props.disabled}> <AddBox/></IconButton>
             </div>
     );
 })

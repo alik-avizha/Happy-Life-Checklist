@@ -14,7 +14,7 @@ type TodolistPropsType = {
 
 export const Todolist = (props: TodolistPropsType) => {
 
-    const {id, title, filter} = props.todoInfo
+    const {id, title, filter, entityStatus} = props.todoInfo
 
     const {
         filteredTasks,
@@ -38,12 +38,12 @@ export const Todolist = (props: TodolistPropsType) => {
     return (
         <div>
             <h3>
-                <EditableSpan title={title} onChange={changeTodoListTitle}/>
-                <IconButton onClick={deleteTodoListHandler}>
+                <EditableSpan title={title} onChange={changeTodoListTitle} disabled={entityStatus === 'loading'}/>
+                <IconButton onClick={deleteTodoListHandler} disabled={entityStatus === 'loading'}>
                     <DeleteIcon/>
                 </IconButton>
             </h3>
-            <AddItemForm addItem={addTaskHandler}/>
+            <AddItemForm addItem={addTaskHandler} disabled={entityStatus === 'loading'}/>
             <div>
                 {mappingTasks}
             </div>

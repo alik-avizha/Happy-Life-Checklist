@@ -4,11 +4,12 @@ import {EditableSpan} from '../../../../components/EditableSpan/EditableSpan';
 import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {useTask} from './hooks/useTask';
-import {TaskStatuses, TaskTypeAPI} from '../../../../dal/todolist-api';
+import {TaskStatuses} from '../../../../dal/todolist-api';
+import {TaskDomainType} from '../../../../bll/tasksReducer';
 
 type TaskPropsType = {
     todoId: string
-    task: TaskTypeAPI
+    task: TaskDomainType
 }
 
 export const Task = memo((props: TaskPropsType) => {
@@ -17,9 +18,9 @@ export const Task = memo((props: TaskPropsType) => {
 
     return (
         <div>
-            <Checkbox checked={props.task.status === TaskStatuses.Completed} onChange={onChangeStatusTask}/>
-            <EditableSpan title={props.task.title} onChange={onChangeTitle}/>
-            <IconButton onClick={deleteHandler}>
+            <Checkbox checked={props.task.status === TaskStatuses.Completed} onChange={onChangeStatusTask} disabled={props.task.entityStatus === 'loading'}/>
+            <EditableSpan title={props.task.title} onChange={onChangeTitle} disabled={props.task.entityStatus === 'loading'}/>
+            <IconButton onClick={deleteHandler} disabled={props.task.entityStatus === 'loading'}>
                 <DeleteIcon/>
             </IconButton>
         </div>
