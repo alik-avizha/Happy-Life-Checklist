@@ -1,4 +1,4 @@
-import {deleteTaskTC, updateTaskTC} from '../../../../../bll/tasksReducer';
+import {deleteTaskTC, updateTaskTC} from '../tasksReducer';
 import {ChangeEvent, useCallback} from 'react';
 import {TaskStatuses} from '../../../../../dal/todolist-api';
 import {useAppDispatch} from '../../../../../bll/state';

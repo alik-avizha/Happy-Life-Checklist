@@ -1,7 +1,7 @@
 import type {Meta, StoryObj} from '@storybook/react';
 import {action} from '@storybook/addon-actions'
 import {Task} from './Task';
-import {ReduxStoreProviderDecorator} from '../../../../bll/decorators/ReduxStoreProviderDecorator';
+import {ReduxStoreProviderDecorator} from '../../../../stories/decorators/ReduxStoreProviderDecorator';
 import {useDispatch, useSelector} from 'react-redux';
 import React, {ChangeEvent, useCallback} from 'react';
 import Checkbox from '@mui/material/Checkbox';
@@ -10,7 +10,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {AppRootType} from '../../../../bll/state';
 import {TaskStatuses} from '../../../../dal/todolist-api';
-import {TaskDomainType, updateTaskAC} from '../../../../bll/tasksReducer';
+import {TaskDomainType, updateTaskAC} from './tasksReducer';
 
 const meta: Meta<typeof Task> = {
   title: 'TodoLists/Task',

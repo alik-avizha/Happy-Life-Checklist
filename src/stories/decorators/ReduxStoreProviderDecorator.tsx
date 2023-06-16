@@ -2,11 +2,11 @@ import React from 'react';
 import {Provider} from 'react-redux';
 import {applyMiddleware, combineReducers, legacy_createStore} from 'redux';
 import {v1} from 'uuid';
-import {tasksReducer} from '../tasksReducer';
-import {todolistReducer} from '../todolistReducer';
-import {AppRootType} from '../state';
+import {tasksReducer} from '../../features/TodolistList/Todlist/Task/tasksReducer';
+import {todolistReducer} from '../../features/TodolistList/todolistReducer';
+import {AppRootType} from '../../bll/state';
 import {TaskPriorities, TaskStatuses} from '../../dal/todolist-api';
-import {appReducer} from '../app-reducer';
+import {appReducer} from '../../app/app-reducer';
 import thunk from 'redux-thunk';
 
 const rootReducer = combineReducers({
@@ -33,6 +33,10 @@ const initialGlobalState: AppRootType = {
     app: {
         status: 'idle',
         error: null
+    },
+    auth: {
+        isLoggedIn: false,
+        isInitialized: false
     }
 };
 

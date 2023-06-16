@@ -6,12 +6,18 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import LinearProgress from '@mui/material/LinearProgress';
-import {useAppSelector} from '../../bll/state';
+import {useAppDispatch, useAppSelector} from '../../bll/state';
+import {logoutTC} from '../Login/auth-reducer';
 
 export const Header = () => {
 
     const status = useAppSelector(state => state.app.status)
+    const isLoggedIn = useAppSelector(state => state.auth.isLoggedIn)
+    const dispatch = useAppDispatch()
 
+    const logoutHandler = () => {
+        dispatch(logoutTC())
+    }
     return (
         <AppBar position="static">
             <Toolbar>
@@ -27,7 +33,7 @@ export const Header = () => {
                 <Typography variant="h6" component="div" sx={{flexGrow: 1}}>
                     Todolist
                 </Typography>
-                <Button color="inherit">Login</Button>
+                {isLoggedIn && <Button color="inherit" onClick={logoutHandler}>Log out</Button>}
             </Toolbar>
             {status === 'loading' && <LinearProgress/>}
         </AppBar>

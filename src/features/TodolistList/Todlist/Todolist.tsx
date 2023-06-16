@@ -6,7 +6,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 import Button from '@mui/material/Button';
 import {Task} from './Task/Task';
 import {useTodolist} from './hooks/useTodolist';
-import {TodolistDomainType} from '../../../bll/todolistReducer';
+import {TodolistDomainType} from '../todolistReducer';
 
 type TodolistPropsType = {
     todoInfo: TodolistDomainType

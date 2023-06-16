@@ -5,7 +5,7 @@ import IconButton from '@mui/material/IconButton';
 import DeleteIcon from '@mui/icons-material/Delete';
 import {useTask} from './hooks/useTask';
 import {TaskStatuses} from '../../../../dal/todolist-api';
-import {TaskDomainType} from '../../../../bll/tasksReducer';
+import {TaskDomainType} from './tasksReducer';
 
 type TaskPropsType = {
     todoId: string

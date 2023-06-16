@@ -1,7 +1,7 @@
-import {todolistAPI, TodolistTypeAPI} from '../dal/todolist-api';
-import {AppThunk} from './state';
-import {RequestStatusType, setAppStatusAC} from './app-reducer';
-import {handleServerAppError, handleServerNetworkError} from '../uttils/error-utils';
+import {todolistAPI, TodolistTypeAPI} from '../../dal/todolist-api';
+import {AppThunk} from '../../bll/state';
+import {RequestStatusType, setAppStatusAC} from '../../app/app-reducer';
+import {handleServerAppError, handleServerNetworkError} from '../../uttils/error-utils';
 
 const initialState: TodolistDomainType[] = []
 
@@ -61,6 +61,7 @@ export const changeEntityStatusAC = (todolistId: string, status: RequestStatusTy
 
 //thunk creators
 export const fetchTodolistsTC = (): AppThunk => (dispatch) => {
+    dispatch(setAppStatusAC('loading'))
     todolistAPI.getTodo()
         .then((res) => {
             let todos = res.data

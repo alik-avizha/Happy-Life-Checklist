@@ -1,7 +1,7 @@
 import {useAppDispatch, useAppSelector} from '../../../../bll/state';
 import {useCallback, useEffect} from 'react';
-import {createTaskTC, fetchTasksTC} from '../../../../bll/tasksReducer';
-import {changeFilterValueAC, changeTodolistTitleTC, deleteTodolistsTC, FilterType} from '../../../../bll/todolistReducer';
+import {createTaskTC, fetchTasksTC} from '../Task/tasksReducer';
+import {changeFilterValueAC, changeTodolistTitleTC, deleteTodolistsTC, FilterType} from '../../todolistReducer';
 import {TaskStatuses} from '../../../../dal/todolist-api';
 
 export const useTodolist = (todoId: string, title: string, filter: FilterType) => {

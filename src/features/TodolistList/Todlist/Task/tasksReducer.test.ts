@@ -1,6 +1,7 @@
-import {v1} from 'uuid';
+import {TaskPriorities, TaskStatuses} from '../../../../dal/todolist-api';
 import {deleteTaskAC, tasksReducer, TasksType, updateTaskAC} from './tasksReducer';
-import {TaskPriorities, TaskStatuses} from '../dal/todolist-api';
+import {v1} from 'uuid';
+
 
 let todolistId1 = v1();
 let todolistId2 = v1();
