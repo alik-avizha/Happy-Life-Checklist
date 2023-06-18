@@ -1,5 +1,5 @@
 import {TaskPriorities, tasksAPI, TaskStatuses, TaskTypeAPI, UpdateTaskType} from '../../../../dal/todolist-api';
-import {AddTodoListACType, DeleteTodoListACType, SetTodolistsACType} from '../../todolistReducer';
+import {AddTodoListACType, ClearDataACType, DeleteTodoListACType, SetTodolistsACType} from '../../todolistReducer';
 import {AppRootType, AppThunk} from '../../../../bll/state';
 import {RequestStatusType, setAppStatusAC} from '../../../../app/app-reducer';
 import {handleServerAppError, handleServerNetworkError} from '../../../../uttils/error-utils';
@@ -48,6 +48,8 @@ export const tasksReducer = (state = initialState, action: TasksActionsType): Ta
             let stateCopy = {...state}
             delete stateCopy[action.payload.todolistId]
             return stateCopy
+        case 'CLEAR-TODOS-DATA':
+            return {}
         default:
             return state
     }
@@ -181,3 +183,4 @@ export type TasksActionsType =
     | SetTodolistsACType
     | ReturnType<typeof setTasksAC>
     | ReturnType<typeof changeTasksEntityStatusAC>
+    | ClearDataACType

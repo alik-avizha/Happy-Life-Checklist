@@ -8,11 +8,14 @@ import {AppRootType} from '../../bll/state';
 import {TaskPriorities, TaskStatuses} from '../../dal/todolist-api';
 import {appReducer} from '../../app/app-reducer';
 import thunk from 'redux-thunk';
+import {authReducer} from '../../features/Login/auth-reducer';
+import {BrowserRouter} from 'react-router-dom';
 
 const rootReducer = combineReducers({
     todolists: todolistReducer,
     tasks: tasksReducer,
-    app: appReducer
+    app: appReducer,
+    auth: authReducer
 })
 
 const initialGlobalState: AppRootType = {
@@ -43,5 +46,9 @@ const initialGlobalState: AppRootType = {
 export const storyBookStore = legacy_createStore(rootReducer, initialGlobalState, applyMiddleware(thunk));
 
 export const ReduxStoreProviderDecorator = (storyFn: () => React.ReactNode) => {
-    return <Provider store={storyBookStore}>{storyFn()}</Provider>
+    return <BrowserRouter>
+        <Provider store={storyBookStore}>
+            {storyFn()}
+        </Provider>
+    </BrowserRouter>
 }
