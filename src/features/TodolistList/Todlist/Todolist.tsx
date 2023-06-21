@@ -15,7 +15,6 @@ type TodolistPropsType = {
 export const Todolist = (props: TodolistPropsType) => {
 
     const {id, title, filter, entityStatus} = props.todoInfo
-
     const {
         filteredTasks,
         addTaskHandler,

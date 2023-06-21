@@ -12,7 +12,7 @@ import {loginTC} from './auth-reducer';
 import {useAppDispatch, useAppSelector} from '../../bll/state';
 import {Navigate} from 'react-router-dom';
 
-type FormikErrorType = {
+export type FormikErrorType = {
     email?: string
     password?: string
     rememberMe?: boolean
@@ -84,7 +84,6 @@ export const Login = () => {
                     </FormGroup>
                 </FormControl>
             </form>
-
         </Grid>
     </Grid>
 }

@@ -10,10 +10,11 @@ import {initializeAppTC} from '../features/Login/auth-reducer';
 import CircularProgress from '@mui/material/CircularProgress';
 
 export function App() {
+
     const isInitialized = useAppSelector(state => state.auth.isInitialized)
     const dispatch = useAppDispatch()
 
-    useEffect(()=>{
+    useEffect(() => {
         dispatch(initializeAppTC())
     })
 
@@ -25,16 +26,17 @@ export function App() {
     }
 
     return (
-        <div className="App">
-            <ErrorSnackbar/>
-            <Header/>
-            <Routes>
-                <Route path="/" element={<TodolistList/>}/>
-                <Route path="/login" element={<Login/>}/>
-                <Route path="/404" element={<h1>404: PAGE NOT FOUND</h1>}/>
-                <Route path="*" element={<Navigate to={'/404'}/>}/>
-            </Routes>
-        </div>
+            <div className="App">
+                <ErrorSnackbar/>
+                <Header/>
+                <Routes>
+                    <Route path="/" element={<TodolistList/>}/>
+                    <Route path="/login" element={<Login/>}/>
+                    <Route path="/404" element={<h1>404: PAGE NOT FOUND</h1>}/>
+                    <Route path="*" element={<Navigate to={'/404'}/>}/>
+                </Routes>
+            </div>
     );
 }
+
 export default App;
