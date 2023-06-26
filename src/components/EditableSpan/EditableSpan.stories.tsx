@@ -1,26 +1,26 @@
-import type {Meta, StoryObj} from '@storybook/react';
-import {action} from '@storybook/addon-actions'
-import {EditableSpan} from './EditableSpan';
+import type { Meta, StoryObj } from "@storybook/react";
+import { action } from "@storybook/addon-actions";
+import { EditableSpan } from "./EditableSpan";
 
 const meta: Meta<typeof EditableSpan> = {
-    title: 'TodoLists/EditableSpan',
+    title: "TodoLists/EditableSpan",
     component: EditableSpan,
-    tags: ['autodocs'],
+    tags: ["autodocs"],
     argTypes: {
         title: {
-            description: 'Start value empty. Add value push button set string.',
+            description: "Start value empty. Add value push button set string.",
         },
         onChange: {
-            description: 'Value EditableSpan changed'
-        }
-    }
+            description: "Value EditableSpan changed",
+        },
+    },
 };
 
 export default meta;
 type Story = StoryObj<typeof EditableSpan>;
 
 export const EditableSpanStory: Story = {
-  args: {
-    onChange: action('Value EditableSpan changed')
-  }
+    args: {
+        onChange: action("Value EditableSpan changed"),
+    },
 };

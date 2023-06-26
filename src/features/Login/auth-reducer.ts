@@ -1,86 +1,77 @@
-import {Dispatch} from 'redux'
-import {SetAppErrorACType, setAppStatusAC, SetAppStatusACType} from '../../app/app-reducer';
-import {authAPI, LoginDataType} from '../../dal/todolist-api';
-import {handleServerAppError, handleServerNetworkError} from '../../uttils/error-utils';
-import {ClearDataACType, clearTodosDataAC} from '../TodolistList/todolistReducer';
+import { Dispatch } from "redux";
+import { authAPI, LoginDataType } from "dal/todolist-api";
+import { handleServerAppError, handleServerNetworkError } from "uttils/error-utils";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { appActions } from "app/app-reducer";
+import { clearTasksAndTodolists } from "uttils/clearTaskAndTodo/clearTaskAndTodo";
 
-const initialState = {
-    isLoggedIn: false,
-    isInitialized: false
-}
-type InitialStateType = typeof initialState
+const slice = createSlice({
+    name: "auth",
+    initialState: {
+        isLoggedIn: false,
+        isInitialized: false,
+    },
+    reducers: {
+        setIsLoggedIn: (state, action: PayloadAction<{ value: boolean }>) => {
+            state.isLoggedIn = action.payload.value;
+        },
+        setIsInitialised: (state, action: PayloadAction<{ value: boolean }>) => {
+            state.isInitialized = action.payload.value;
+        },
+    },
+});
 
-export const authReducer = (state: InitialStateType = initialState, action: ActionsType): InitialStateType => {
-    switch (action.type) {
-        case 'login/SET-IS-LOGGED-IN':
-            return {...state, isLoggedIn: action.value}
-        case 'login/SET-IS-Initialised':
-            return {...state, isInitialized: action.value}
-        default:
-            return state
-    }
-}
-
-// actions
-export const setIsLoggedInAC = (value: boolean) =>
-    ({type: 'login/SET-IS-LOGGED-IN', value} as const)
-export const setIsInitialisedAC = (value: boolean) =>
-    ({type: 'login/SET-IS-Initialised', value} as const)
+export const authReducer = slice.reducer;
+export const authActions = slice.actions;
 
 // thunks
 export const initializeAppTC = () => (dispatch: Dispatch) => {
-    authAPI.me().then(res => {
-        if (res.data.resultCode === 0) {
-            dispatch(setIsLoggedInAC(true));
-        } else {
-            handleServerAppError(res.data, dispatch)
-        }
-    })
-        .catch(err => {
-            handleServerNetworkError(err, dispatch)
-        })
-        .finally(() => {
-            dispatch(setIsInitialisedAC(true))
-        })
-}
-
-export const loginTC = (data: LoginDataType) => (dispatch: Dispatch<ActionsType>) => {
-    dispatch(setAppStatusAC('loading'))
-    authAPI.login(data)
-        .then(res => {
+    authAPI
+        .me()
+        .then((res) => {
             if (res.data.resultCode === 0) {
-                dispatch(setAppStatusAC('idle'))
-                dispatch(setIsLoggedInAC(true))
+                dispatch(authActions.setIsLoggedIn({ value: true }));
             } else {
-                handleServerAppError(res.data, dispatch)
+                handleServerAppError(res.data, dispatch);
             }
         })
-        .catch(err => {
-            handleServerNetworkError(err, dispatch)
+        .catch((err) => {
+            handleServerNetworkError(err, dispatch);
         })
-}
-export const logoutTC = () => (dispatch: Dispatch<ActionsType>) => {
-    dispatch(setAppStatusAC('loading'))
-    authAPI.logout()
-        .then(res => {
+        .finally(() => {
+            dispatch(authActions.setIsInitialised({ value: true }));
+        });
+};
+export const loginTC = (data: LoginDataType) => (dispatch: Dispatch) => {
+    dispatch(appActions.setAppStatus({ status: "loading" }));
+    authAPI
+        .login(data)
+        .then((res) => {
             if (res.data.resultCode === 0) {
-                dispatch(setIsLoggedInAC(false))
-                dispatch(setAppStatusAC('succeeded'))
-                dispatch(clearTodosDataAC())
+                dispatch(appActions.setAppStatus({ status: "succeeded" }));
+                dispatch(authActions.setIsLoggedIn({ value: true }));
             } else {
-                handleServerAppError(res.data, dispatch)
+                handleServerAppError(res.data, dispatch);
+            }
+        })
+        .catch((err) => {
+            handleServerNetworkError(err, dispatch);
+        });
+};
+export const logoutTC = () => (dispatch: Dispatch) => {
+    dispatch(appActions.setAppStatus({ status: "loading" }));
+    authAPI
+        .logout()
+        .then((res) => {
+            if (res.data.resultCode === 0) {
+                dispatch(authActions.setIsLoggedIn({ value: false }));
+                dispatch(clearTasksAndTodolists());
+                dispatch(appActions.setAppStatus({ status: "succeeded" }));
+            } else {
+                handleServerAppError(res.data, dispatch);
             }
         })
         .catch((error) => {
-            handleServerNetworkError(error, dispatch)
-        })
-}
-
-
-// types
-type ActionsType =
-    | ReturnType<typeof setIsInitialisedAC>
-    | ReturnType<typeof setIsLoggedInAC>
-    | SetAppStatusACType
-    | SetAppErrorACType
-    | ClearDataACType
+            handleServerNetworkError(error, dispatch);
+        });
+};
