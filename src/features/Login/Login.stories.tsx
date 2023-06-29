@@ -6,7 +6,6 @@ import { useAppDispatch } from "bll/state";
 import Checkbox from "@mui/material/Checkbox";
 import { useFormik } from "formik";
 import { loginTC } from "features/Login/auth-reducer";
-import { Navigate } from "react-router-dom";
 import Grid from "@mui/material/Grid";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
@@ -57,10 +56,6 @@ const LoginForStory = () => {
             formik.resetForm();
         },
     });
-
-    if (isLoggedIn) {
-        return <Navigate to={"/"} />;
-    }
 
     return (
         <Grid container justifyContent={"center"}>
