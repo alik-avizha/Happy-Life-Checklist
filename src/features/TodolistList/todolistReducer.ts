@@ -2,9 +2,9 @@ import { todolistAPI, TodolistTypeAPI } from "dal/todolist-api";
 import { AppThunk } from "bll/state";
 import { appActions, RequestStatusType } from "app/app-reducer";
 import { handleServerAppError, handleServerNetworkError } from "uttils/error-utils";
-import { fetchTasksTC } from "./Todlist/Task/tasksReducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { clearTasksAndTodolists } from "uttils/clearTaskAndTodo/clearTaskAndTodo";
+import { tasksThunks } from "features/TodolistList/Todlist/Task/tasksReducer";
 
 const slice = createSlice({
     name: "todolists",
@@ -59,7 +59,7 @@ export const fetchTodolistsTC = (): AppThunk => (dispatch) => {
         })
         .then((todos) => {
             todos.forEach((tl) => {
-                dispatch(fetchTasksTC(tl.id));
+                dispatch(tasksThunks.fetchTasks(tl.id));
             });
         });
 };

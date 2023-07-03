@@ -2,15 +2,15 @@ import type { Meta, StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { Task } from "./Task";
 import { ReduxStoreProviderDecorator } from "stories/decorators/ReduxStoreProviderDecorator";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import React, { ChangeEvent, useCallback } from "react";
 import Checkbox from "@mui/material/Checkbox";
 import { EditableSpan } from "components/EditableSpan/EditableSpan";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { AppRootType } from "bll/state";
+import { AppRootType, useAppDispatch } from "bll/state";
 import { TaskStatuses } from "dal/todolist-api";
-import { TaskDomainType, tasksActions } from "./tasksReducer";
+import { TaskDomainType, tasksThunks } from "./tasksReducer";
 
 const meta: Meta<typeof Task> = {
     title: "TodoLists/Task",
@@ -27,23 +27,24 @@ const TaskWithRedux = () => {
 
     let todoId = "todolistId1";
 
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const onChangeStatusTask = (e: ChangeEvent<HTMLInputElement>) => {
         dispatch(
-            tasksActions.updateTask({
+            tasksThunks.updateTask({
                 todolistId: todoId,
-                id: task.id,
+                taskId: task.id,
                 data: e.currentTarget.checked ? { status: TaskStatuses.Completed } : { status: TaskStatuses.New },
             })
         );
     };
+
     const onChangeTitle = useCallback(
         (newValue: string) => {
             dispatch(
-                tasksActions.updateTask({
+                tasksThunks.updateTask({
                     todolistId: todoId,
-                    id: task.id,
+                    taskId: task.id,
                     data: {
                         title: newValue,
                     },

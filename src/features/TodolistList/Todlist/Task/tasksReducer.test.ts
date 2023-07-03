@@ -1,5 +1,5 @@
 import { TaskPriorities, TaskStatuses } from "dal/todolist-api";
-import { tasksActions, tasksReducer, TasksType } from "./tasksReducer";
+import { tasksReducer, tasksThunks, TasksType } from "./tasksReducer";
 import { v1 } from "uuid";
 
 let todolistId1 = v1();
@@ -84,7 +84,11 @@ beforeEach(() => {
 test("correct tasks should be removed", () => {
     const endState = tasksReducer(
         startState,
-        tasksActions.deleteTask({ todolistId: todolistId1, id: startState[todolistId1][0].id })
+        tasksThunks.deleteTask.fulfilled(
+            { todolistId: todolistId1, taskId: startState[todolistId1][0].id },
+            "requestId",
+            { todolistId: todolistId1, taskId: startState[todolistId1][0].id }
+        )
     );
 
     expect(endState[todolistId1].length).toBe(2);
@@ -93,32 +97,24 @@ test("correct tasks should be removed", () => {
 
 test("correct tasks Status should be changed", () => {
     let newStatus = TaskStatuses.New;
-    const endState = tasksReducer(
-        startState,
-        tasksActions.updateTask({
-            todolistId: todolistId1,
-            id: startState[todolistId1][0].id,
-            data: {
-                status: newStatus,
-            },
-        })
-    );
+    let args = {
+        todolistId: todolistId1,
+        taskId: startState[todolistId1][0].id,
+        data: { status: newStatus },
+    };
+    const endState = tasksReducer(startState, tasksThunks.updateTask.fulfilled(args, "requestId", args));
 
     expect(endState[todolistId1][0].status).toBe(TaskStatuses.New);
 });
 
 test("correct tasks Title should be changed", () => {
     let newTitle = "Hello";
-    const endState = tasksReducer(
-        startState,
-        tasksActions.updateTask({
-            todolistId: todolistId1,
-            id: startState[todolistId1][0].id,
-            data: {
-                title: newTitle,
-            },
-        })
-    );
+    let args = {
+        todolistId: todolistId1,
+        taskId: startState[todolistId1][0].id,
+        data: { title: newTitle },
+    };
 
+    const endState = tasksReducer(startState, tasksThunks.updateTask.fulfilled(args, "requestId", args));
     expect(endState[todolistId1][0].title).toBe("Hello");
 });

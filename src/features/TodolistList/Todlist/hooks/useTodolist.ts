@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from "bll/state";
 import { useCallback } from "react";
-import { createTaskTC } from "../Task/tasksReducer";
 import { changeTodolistTitleTC, deleteTodolistsTC, FilterType, todolistActions } from "../../todolistReducer";
 import { TaskStatuses } from "dal/todolist-api";
+import { tasksThunks } from "features/TodolistList/Todlist/Task/tasksReducer";
 
 export const useTodolist = (todoId: string, title: string, filter: FilterType) => {
     const tasks = useAppSelector((state) => state.tasks[todoId]);
@@ -13,7 +13,7 @@ export const useTodolist = (todoId: string, title: string, filter: FilterType) =
 
     const addTaskHandler = useCallback(
         (title: string) => {
-            dispatch(createTaskTC(todoId, title));
+            dispatch(tasksThunks.addTasks({ todolistId: todoId, title }));
         },
         [todoId, dispatch]
     );
