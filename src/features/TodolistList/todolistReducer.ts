@@ -1,11 +1,11 @@
-import { ResultCode, todolistAPI, TodolistTypeAPI } from "dal/todolist-api";
+import { todolistApi, TodolistTypeAPI } from "features/TodolistList/todolist.api";
 import { AppThunk } from "app/store";
 import { appActions, RequestStatusType } from "app/app-reducer";
-import { handleServerNetworkError } from "common/utils/handle-server-network-error";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { clearTasksAndTodolists } from "common/utils/clearTaskAndTodo/clearTaskAndTodo";
 import { tasksThunks } from "features/TodolistList/Todlist/Task/tasksReducer";
-import { handleServerAppError } from "common/utils/handle-server-app-error";
+import { ResultCode } from "common/apiSettings/common.api";
+import { handleServerAppError, handleServerNetworkError } from "common/utils";
+import { clearTasksAndTodolists } from "common/clearTaskAndTodo/clearTaskAndTodo";
 
 const slice = createSlice({
     name: "todolists",
@@ -50,7 +50,7 @@ export const todolistActions = slice.actions;
 //thunk creators
 export const fetchTodolistsTC = (): AppThunk => (dispatch) => {
     dispatch(appActions.setAppStatus({ status: "loading" }));
-    todolistAPI
+    todolistApi
         .getTodo()
         .then((res) => {
             let todos = res.data;
@@ -69,7 +69,7 @@ export const deleteTodolistsTC =
     (dispatch) => {
         dispatch(appActions.setAppStatus({ status: "loading" }));
         dispatch(todolistActions.changeTodolistEntityStatus({ todolistId, status: "loading" }));
-        todolistAPI
+        todolistApi
             .deleteTodo(todolistId)
             .then((res) => {
                 if (res.data.resultCode === ResultCode.success) {
@@ -87,7 +87,7 @@ export const addTodolistsTC =
     (title: string): AppThunk =>
     (dispatch) => {
         dispatch(appActions.setAppStatus({ status: "loading" }));
-        todolistAPI
+        todolistApi
             .createTodo(title)
             .then((res) => {
                 if (res.data.resultCode === ResultCode.success) {
@@ -106,7 +106,7 @@ export const changeTodolistTitleTC =
     (dispatch) => {
         dispatch(appActions.setAppStatus({ status: "loading" }));
         dispatch(todolistActions.changeTodolistEntityStatus({ todolistId, status: "loading" }));
-        todolistAPI
+        todolistApi
             .updateTodo(todolistId, title)
             .then((res) => {
                 if (res.data.resultCode === ResultCode.success) {

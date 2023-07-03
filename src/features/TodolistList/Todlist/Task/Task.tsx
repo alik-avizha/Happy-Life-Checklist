@@ -4,8 +4,8 @@ import { EditableSpan } from "common/components/editableSpan/EditableSpan";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useTask } from "./hooks/useTask";
-import { TaskStatuses } from "dal/todolist-api";
 import { TaskDomainType } from "./tasksReducer";
+import { TaskStatuses } from "common/enums/enums";
 
 type TaskPropsType = {
     todoId: string;

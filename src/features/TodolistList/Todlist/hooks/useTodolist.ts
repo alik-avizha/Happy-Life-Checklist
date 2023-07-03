@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from "app/store";
 import { useCallback } from "react";
 import { changeTodolistTitleTC, deleteTodolistsTC, FilterType, todolistActions } from "../../todolistReducer";
-import { TaskStatuses } from "dal/todolist-api";
 import { tasksThunks } from "features/TodolistList/Todlist/Task/tasksReducer";
+import { TaskStatuses } from "common/enums/enums";
 
 export const useTodolist = (todoId: string, title: string, filter: FilterType) => {
     const tasks = useAppSelector((state) => state.tasks[todoId]);

@@ -1,11 +1,11 @@
-import { ResultCode, TaskPriorities, tasksAPI, TaskStatuses, TaskTypeAPI, UpdateTaskType } from "dal/todolist-api";
 import { appActions, RequestStatusType } from "app/app-reducer";
-import { handleServerNetworkError } from "common/utils/handle-server-network-error";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { todolistActions } from "features/TodolistList/todolistReducer";
-import { clearTasksAndTodolists } from "common/utils/clearTaskAndTodo/clearTaskAndTodo";
-import { createAppAsyncThunk } from "common/utils/create-app-async-thunk";
-import { handleServerAppError } from "common/utils/handle-server-app-error";
+import { tasksAPI, TaskTypeAPI, UpdateTaskType } from "features/TodolistList/Todlist/Task/tasks.api";
+import { TaskPriorities, TaskStatuses } from "common/enums/enums";
+import { ResultCode } from "common/apiSettings/common.api";
+import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from "common/utils";
+import { clearTasksAndTodolists } from "common/clearTaskAndTodo/clearTaskAndTodo";
 
 const slice = createSlice({
     name: "tasks",

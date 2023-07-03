@@ -1,7 +1,7 @@
 import { tasksThunks } from "../tasksReducer";
 import { ChangeEvent, useCallback } from "react";
-import { TaskStatuses } from "dal/todolist-api";
 import { useAppDispatch } from "app/store";
+import { TaskStatuses } from "common/enums/enums";
 
 export const useTask = (todoId: string, taskId: string) => {
     const dispatch = useAppDispatch();

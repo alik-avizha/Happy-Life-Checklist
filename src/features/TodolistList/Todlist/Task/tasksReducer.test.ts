@@ -1,6 +1,6 @@
-import { TaskPriorities, TaskStatuses } from "dal/todolist-api";
 import { tasksReducer, tasksThunks, TasksType } from "./tasksReducer";
 import { v1 } from "uuid";
+import { TaskPriorities, TaskStatuses } from "common/enums/enums";
 
 let todolistId1 = v1();
 let todolistId2 = v1();
