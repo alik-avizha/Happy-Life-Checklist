@@ -1,5 +1,5 @@
 import { v1 } from "uuid";
-import { todolistActions, TodolistDomainType, todolistReducer } from "./todolistReducer";
+import { todolistActions, TodolistDomainType, todolistReducer, todolistThunks } from "./todolistReducer";
 
 let todolistId1: string;
 let todolistId2: string;
@@ -17,7 +17,10 @@ beforeEach(() => {
 });
 
 test("correct todoList should be removed", () => {
-    const endState = todolistReducer(startState, todolistActions.deleteTodolists({ todolistId: todolistId1 }));
+    const endState = todolistReducer(
+        startState,
+        todolistThunks.deleteTodolists.fulfilled({ todolistId: todolistId1 }, "requestId", { todolistId: todolistId1 })
+    );
 
     expect(endState.length).toBe(1);
     expect(endState[0].id).toBe(todolistId2);

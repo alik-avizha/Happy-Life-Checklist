@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "app/store";
 import { useCallback, useEffect } from "react";
-import { addTodolistsTC, fetchTodolistsTC } from "../todolistReducer";
+import { addTodolistsTC, todolistThunks } from "../todolistReducer";
 
 export const useTodolistList = () => {
     const todoLists = useAppSelector((state) => state.todolists);
@@ -9,7 +9,7 @@ export const useTodolistList = () => {
 
     useEffect(() => {
         if (!isLoggedIn) return;
-        dispatch(fetchTodolistsTC());
+        dispatch(todolistThunks.fetchTodolists());
     }, []);
 
     const addTodoList = useCallback(

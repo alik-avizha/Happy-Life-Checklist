@@ -1,6 +1,6 @@
 import { useAppDispatch, useAppSelector } from "app/store";
 import { useCallback } from "react";
-import { changeTodolistTitleTC, deleteTodolistsTC, FilterType, todolistActions } from "../../todolistReducer";
+import { changeTodolistTitleTC, FilterType, todolistActions, todolistThunks } from "../../todolistReducer";
 import { tasksThunks } from "features/TodolistList/Todlist/Task/tasksReducer";
 import { TaskStatuses } from "common/enums/enums";
 
@@ -19,7 +19,7 @@ export const useTodolist = (todoId: string, title: string, filter: FilterType) =
     );
 
     const deleteTodoListHandler = useCallback(() => {
-        dispatch(deleteTodolistsTC(todoId));
+        dispatch(todolistThunks.deleteTodolists({ todolistId: todoId }));
     }, [dispatch, todoId]);
 
     const changeTodoListTitle = useCallback(
