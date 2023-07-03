@@ -1,10 +1,11 @@
-import { TaskPriorities, tasksAPI, TaskStatuses, TaskTypeAPI, UpdateTaskType } from "dal/todolist-api";
+import { ResultCode, TaskPriorities, tasksAPI, TaskStatuses, TaskTypeAPI, UpdateTaskType } from "dal/todolist-api";
 import { appActions, RequestStatusType } from "app/app-reducer";
-import { handleServerAppError, handleServerNetworkError } from "uttils/error-utils";
+import { handleServerNetworkError } from "common/utils/handle-server-network-error";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { todolistActions } from "features/TodolistList/todolistReducer";
-import { clearTasksAndTodolists } from "uttils/clearTaskAndTodo/clearTaskAndTodo";
-import { createAppAsyncThunk } from "uttils/create-app-async-thunk";
+import { clearTasksAndTodolists } from "common/utils/clearTaskAndTodo/clearTaskAndTodo";
+import { createAppAsyncThunk } from "common/utils/create-app-async-thunk";
+import { handleServerAppError } from "common/utils/handle-server-app-error";
 
 const slice = createSlice({
     name: "tasks",
@@ -84,7 +85,7 @@ const addTasks = createAppAsyncThunk<{ task: TaskTypeAPI }, { todolistId: string
         try {
             dispatch(appActions.setAppStatus({ status: "loading" }));
             const res = await tasksAPI.createTask(arg.todolistId, arg.title);
-            if (res.data.resultCode === 0) {
+            if (res.data.resultCode === ResultCode.success) {
                 dispatch(appActions.setAppStatus({ status: "succeeded" }));
                 return { task: res.data.data.item };
             } else {
@@ -113,7 +114,7 @@ const updateTask = createAppAsyncThunk<
         }
         const model: UpdateTaskType = { ...task, ...arg.data };
         const res = await tasksAPI.updateTask(arg.todolistId, arg.taskId, model);
-        if (res.data.resultCode === 0) {
+        if (res.data.resultCode === ResultCode.success) {
             dispatch(appActions.setAppStatus({ status: "succeeded" }));
             return { todolistId: arg.todolistId, taskId: arg.taskId, data: arg.data };
         } else {
@@ -138,7 +139,7 @@ const deleteTask = createAppAsyncThunk<{ todolistId: string; taskId: string }, {
                 tasksActions.changeEntityStatus({ todolistId: arg.todolistId, taskId: arg.taskId, status: "loading" })
             );
             const res = await tasksAPI.deleteTask(arg.todolistId, arg.taskId);
-            if (res.data.resultCode === 0) {
+            if (res.data.resultCode === ResultCode.success) {
                 dispatch(appActions.setAppStatus({ status: "succeeded" }));
                 return arg;
             } else {

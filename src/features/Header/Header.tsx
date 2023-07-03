@@ -6,7 +6,7 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import LinearProgress from "@mui/material/LinearProgress";
-import { useAppDispatch, useAppSelector } from "bll/state";
+import { useAppDispatch, useAppSelector } from "app/store";
 import { logoutTC } from "../Login/auth-reducer";
 
 export const Header = () => {

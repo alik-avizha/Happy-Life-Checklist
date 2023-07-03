@@ -1,6 +1,6 @@
 import React, { memo } from "react";
 import Checkbox from "@mui/material/Checkbox";
-import { EditableSpan } from "components/EditableSpan/EditableSpan";
+import { EditableSpan } from "common/components/editableSpan/EditableSpan";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useTask } from "./hooks/useTask";

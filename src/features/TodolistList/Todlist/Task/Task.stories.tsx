@@ -5,10 +5,10 @@ import { ReduxStoreProviderDecorator } from "stories/decorators/ReduxStoreProvid
 import { useSelector } from "react-redux";
 import React, { ChangeEvent, useCallback } from "react";
 import Checkbox from "@mui/material/Checkbox";
-import { EditableSpan } from "components/EditableSpan/EditableSpan";
+import { EditableSpan } from "common/components/editableSpan/EditableSpan";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { AppRootType, useAppDispatch } from "bll/state";
+import { AppRootType, useAppDispatch } from "app/store";
 import { TaskStatuses } from "dal/todolist-api";
 import { TaskDomainType, tasksThunks } from "./tasksReducer";
 

@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "bll/state";
+import { useAppDispatch, useAppSelector } from "app/store";
 import { useCallback } from "react";
 import { changeTodolistTitleTC, deleteTodolistsTC, FilterType, todolistActions } from "../../todolistReducer";
 import { TaskStatuses } from "dal/todolist-api";

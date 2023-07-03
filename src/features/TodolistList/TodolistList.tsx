@@ -1,11 +1,11 @@
 import { useTodolistList } from "./hooks/useTodolistList";
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
-import { AddItemForm } from "components/AddItemForm/AddItemForm";
+import { AddItemForm } from "common/components/addItemForm/AddItemForm";
 import Paper from "@mui/material/Paper";
 import { Todolist } from "./Todlist/Todolist";
 import React from "react";
-import { useAppSelector } from "bll/state";
+import { useAppSelector } from "app/store";
 import { Navigate } from "react-router-dom";
 
 export const TodolistList = () => {

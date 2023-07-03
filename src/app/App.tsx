@@ -2,10 +2,10 @@ import React, { useEffect } from "react";
 import "./App.css";
 import { Header } from "features/Header/Header";
 import { TodolistList } from "features/TodolistList/TodolistList";
-import { ErrorSnackbar } from "components/ErrorSnackBar/ErrorSnackBar";
+import { ErrorSnackbar } from "common/components/errorSnackBar/ErrorSnackBar";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Login } from "features/Login/Login";
-import { useAppDispatch, useAppSelector } from "bll/state";
+import { useAppDispatch, useAppSelector } from "app/store";
 import { initializeAppTC } from "features/Login/auth-reducer";
 import CircularProgress from "@mui/material/CircularProgress";
 

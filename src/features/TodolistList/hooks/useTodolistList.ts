@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from "bll/state";
+import { useAppDispatch, useAppSelector } from "app/store";
 import { useCallback, useEffect } from "react";
 import { addTodolistsTC, fetchTodolistsTC } from "../todolistReducer";
 

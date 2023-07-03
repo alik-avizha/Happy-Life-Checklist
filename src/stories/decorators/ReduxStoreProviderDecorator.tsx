@@ -4,7 +4,7 @@ import { combineReducers } from "redux";
 import { v1 } from "uuid";
 import { tasksReducer } from "features/TodolistList/Todlist/Task/tasksReducer";
 import { todolistReducer } from "features/TodolistList/todolistReducer";
-import { AppRootType } from "bll/state";
+import { AppRootType } from "app/store";
 import { TaskPriorities, TaskStatuses } from "dal/todolist-api";
 import { appReducer } from "app/app-reducer";
 import { authReducer } from "features/Login/auth-reducer";

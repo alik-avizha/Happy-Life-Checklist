@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { FormikErrorType, Login } from "./Login";
 import { ReduxStoreProviderDecorator } from "stories/decorators/ReduxStoreProviderDecorator";
-import { useAppDispatch } from "bll/state";
+import { useAppDispatch } from "app/store";
 import Checkbox from "@mui/material/Checkbox";
 import { useFormik } from "formik";
 import { loginTC } from "features/Login/auth-reducer";

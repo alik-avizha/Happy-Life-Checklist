@@ -1,9 +1,10 @@
 import { Dispatch } from "redux";
 import { authAPI, LoginDataType } from "dal/todolist-api";
-import { handleServerAppError, handleServerNetworkError } from "uttils/error-utils";
+import { handleServerNetworkError } from "common/utils/handle-server-network-error";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { appActions } from "app/app-reducer";
-import { clearTasksAndTodolists } from "uttils/clearTaskAndTodo/clearTaskAndTodo";
+import { clearTasksAndTodolists } from "common/utils/clearTaskAndTodo/clearTaskAndTodo";
+import { handleServerAppError } from "common/utils/handle-server-app-error";
 
 const slice = createSlice({
     name: "auth",

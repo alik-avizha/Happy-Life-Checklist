@@ -1,10 +1,11 @@
-import { todolistAPI, TodolistTypeAPI } from "dal/todolist-api";
-import { AppThunk } from "bll/state";
+import { ResultCode, todolistAPI, TodolistTypeAPI } from "dal/todolist-api";
+import { AppThunk } from "app/store";
 import { appActions, RequestStatusType } from "app/app-reducer";
-import { handleServerAppError, handleServerNetworkError } from "uttils/error-utils";
+import { handleServerNetworkError } from "common/utils/handle-server-network-error";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { clearTasksAndTodolists } from "uttils/clearTaskAndTodo/clearTaskAndTodo";
+import { clearTasksAndTodolists } from "common/utils/clearTaskAndTodo/clearTaskAndTodo";
 import { tasksThunks } from "features/TodolistList/Todlist/Task/tasksReducer";
+import { handleServerAppError } from "common/utils/handle-server-app-error";
 
 const slice = createSlice({
     name: "todolists",
@@ -71,7 +72,7 @@ export const deleteTodolistsTC =
         todolistAPI
             .deleteTodo(todolistId)
             .then((res) => {
-                if (res.data.resultCode === 0) {
+                if (res.data.resultCode === ResultCode.success) {
                     dispatch(todolistActions.deleteTodolists({ todolistId }));
                     dispatch(appActions.setAppStatus({ status: "succeeded" }));
                 } else {
@@ -89,7 +90,7 @@ export const addTodolistsTC =
         todolistAPI
             .createTodo(title)
             .then((res) => {
-                if (res.data.resultCode === 0) {
+                if (res.data.resultCode === ResultCode.success) {
                     dispatch(todolistActions.addTodolist({ todolist: res.data.data.item }));
                     dispatch(appActions.setAppStatus({ status: "succeeded" }));
                 } else {
@@ -108,7 +109,7 @@ export const changeTodolistTitleTC =
         todolistAPI
             .updateTodo(todolistId, title)
             .then((res) => {
-                if (res.data.resultCode === 0) {
+                if (res.data.resultCode === ResultCode.success) {
                     dispatch(todolistActions.changeTodolistTitle({ todolistId, newTitle: title }));
                     dispatch(appActions.setAppStatus({ status: "succeeded" }));
                 } else {
