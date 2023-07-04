@@ -15,7 +15,6 @@ beforeEach(() => {
         { id: todolistId2, title: "What to buy", filter: "All", order: 1, addedDate: "", entityStatus: "idle" },
     ];
 });
-
 test("correct todoList should be removed", () => {
     const endState = todolistReducer(
         startState,
@@ -25,11 +24,14 @@ test("correct todoList should be removed", () => {
     expect(endState.length).toBe(1);
     expect(endState[0].id).toBe(todolistId2);
 });
-
 test("correct todoList should be add", () => {
     const endState = todolistReducer(
         startState,
-        todolistActions.addTodolist({ todolist: { id: v1(), title: "What to do", addedDate: "", order: 0 } })
+        todolistThunks.addTodolist.fulfilled(
+            { todolist: { id: v1(), title: "What to do", addedDate: "", order: 0 } },
+            "requestId",
+            { title: "What to do" }
+        )
     );
 
     expect(endState.length).toBe(3);
@@ -50,9 +52,11 @@ test("correct todoList should be changed Filter", () => {
 test("correct todoList should be changed Title", () => {
     const endState = todolistReducer(
         startState,
-        todolistActions.changeTodolistTitle({ todolistId: todolistId2, newTitle: "Hello Friend" })
+        todolistThunks.changeTodolistTitle.fulfilled({ todolistId: todolistId2, title: "Hello Friend" }, "requestId", {
+            todolistId: todolistId2,
+            title: "Hello Friend",
+        })
     );
-
     expect(endState.length).toBe(2);
     expect(endState[1].title).toBe("Hello Friend");
 });

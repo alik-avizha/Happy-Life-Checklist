@@ -1,6 +1,6 @@
 import { appActions, RequestStatusType } from "app/app-reducer";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { todolistActions, todolistThunks } from "features/TodolistList/todolistReducer";
+import { todolistThunks } from "features/TodolistList/todolistReducer";
 import { tasksAPI, TaskTypeAPI, UpdateTaskType } from "features/TodolistList/Todlist/Task/tasks.api";
 import { TaskPriorities, TaskStatuses } from "common/enums/enums";
 import { ResultCode } from "common/apiSettings/common.api";
@@ -52,7 +52,7 @@ const slice = createSlice({
             .addCase(todolistThunks.deleteTodolists.fulfilled, (state, action) => {
                 delete state[action.payload.todolistId];
             })
-            .addCase(todolistActions.addTodolist, (state, action) => {
+            .addCase(todolistThunks.addTodolist.fulfilled, (state, action) => {
                 state[action.payload.todolist.id] = [];
             })
             .addCase(clearTasksAndTodolists, () => {
