@@ -5,16 +5,18 @@ import { TodolistList } from "features/TodolistList/TodolistList";
 import { ErrorSnackbar } from "common/components/errorSnackBar/ErrorSnackBar";
 import { Navigate, Route, Routes } from "react-router-dom";
 import { Login } from "features/Login/Login";
-import { useAppDispatch, useAppSelector } from "app/store";
-import { initializeAppTC } from "features/Login/auth-reducer";
 import CircularProgress from "@mui/material/CircularProgress";
+import { authThunks } from "features/Login/auth-reducer";
+import { useActions } from "common/hooks/useActions";
+import { useSelector } from "react-redux";
+import { selectSsInitialized } from "features/Login/auth.selectors";
 
 export function App() {
-    const isInitialized = useAppSelector((state) => state.auth.isInitialized);
-    const dispatch = useAppDispatch();
+    const isInitialized = useSelector(selectSsInitialized);
+    const { initializeApp } = useActions(authThunks);
 
     useEffect(() => {
-        dispatch(initializeAppTC());
+        initializeApp();
     });
 
     if (!isInitialized) {

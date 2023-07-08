@@ -5,13 +5,13 @@ import { AddItemForm } from "common/components/addItemForm/AddItemForm";
 import Paper from "@mui/material/Paper";
 import { Todolist } from "./Todlist/Todolist";
 import React from "react";
-import { useAppSelector } from "app/store";
 import { Navigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { selectIsLoggedIn } from "features/Login/auth.selectors";
 
 export const TodolistList = () => {
     const { todoLists, addTodoList } = useTodolistList();
-
-    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+    const isLoggedIn = useSelector(selectIsLoggedIn);
 
     if (!isLoggedIn) return <Navigate to={"/login"} />;
 

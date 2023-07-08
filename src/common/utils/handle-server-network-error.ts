@@ -2,6 +2,12 @@ import { Dispatch } from "redux";
 import { appActions } from "app/app-reducer";
 import axios, { AxiosError } from "axios";
 
+/**
+ Handles network errors by dispatching actions to update the app error state.
+ @param {unknown} error - The error object.
+ @param {Dispatch} dispatch - The dispatch function from the Redux store.
+ */
+
 export const handleServerNetworkError = (error: unknown, dispatch: Dispatch) => {
     const err = error as Error | AxiosError<{ error: string }>;
     if (axios.isAxiosError(err)) {
@@ -10,5 +16,4 @@ export const handleServerNetworkError = (error: unknown, dispatch: Dispatch) => 
     } else {
         dispatch(appActions.setAppError({ error: `Native error ${err.message}` }));
     }
-    dispatch(appActions.setAppStatus({ status: "failed" }));
 };

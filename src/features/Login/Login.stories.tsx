@@ -2,10 +2,8 @@ import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { FormikErrorType, Login } from "./Login";
 import { ReduxStoreProviderDecorator } from "stories/decorators/ReduxStoreProviderDecorator";
-import { useAppDispatch } from "app/store";
 import Checkbox from "@mui/material/Checkbox";
 import { useFormik } from "formik";
-import { loginTC } from "features/Login/auth-reducer";
 import Grid from "@mui/material/Grid";
 import FormControl from "@mui/material/FormControl";
 import FormLabel from "@mui/material/FormLabel";
@@ -13,6 +11,8 @@ import FormGroup from "@mui/material/FormGroup";
 import TextField from "@mui/material/TextField";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import Button from "@mui/material/Button";
+import { authThunks } from "features/Login/auth-reducer";
+import { useActions } from "common/hooks";
 
 const meta: Meta<typeof Login> = {
     title: "TodoLists/Login",
@@ -26,8 +26,7 @@ export default meta;
 type Story = StoryObj<typeof Login>;
 
 const LoginForStory = () => {
-    const dispatch = useAppDispatch();
-    const isLoggedIn = false;
+    const { login } = useActions(authThunks);
 
     const formik = useFormik({
         initialValues: {
@@ -52,8 +51,7 @@ const LoginForStory = () => {
             return errors;
         },
         onSubmit: (values) => {
-            dispatch(loginTC(values));
-            formik.resetForm();
+            login(values);
         },
     });
 

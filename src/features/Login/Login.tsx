@@ -8,9 +8,12 @@ import FormLabel from "@mui/material/FormLabel";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
 import { useFormik } from "formik";
-import { loginTC } from "./auth-reducer";
-import { useAppDispatch, useAppSelector } from "app/store";
 import { Navigate } from "react-router-dom";
+import { authThunks } from "features/Login/auth-reducer";
+import { ResponseType } from "common/apiSettings/common.api";
+import { useSelector } from "react-redux";
+import { selectIsLoggedIn } from "features/Login/auth.selectors";
+import { useAppDispatch } from "common/hooks";
 
 export type FormikErrorType = {
     email?: string;
@@ -20,7 +23,7 @@ export type FormikErrorType = {
 
 export const Login = () => {
     const dispatch = useAppDispatch();
-    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
+    const isLoggedIn = useSelector(selectIsLoggedIn);
 
     const formik = useFormik({
         initialValues: {
@@ -35,18 +38,25 @@ export const Login = () => {
             } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
                 errors.email = "Invalid email address";
             }
-
             if (!values.password) {
                 errors.password = "Required";
             } else if (values.password.length <= 3) {
                 errors.password = "Password should be more than 3 letter";
             }
-
             return errors;
         },
-        onSubmit: (values) => {
-            dispatch(loginTC(values));
-            formik.resetForm();
+        onSubmit: (values, formikHelpers) => {
+            dispatch(authThunks.login(values))
+                .unwrap()
+                .then(() => {})
+                .catch((reason: ResponseType) => {
+                    const { fieldsErrors } = reason;
+                    if (fieldsErrors) {
+                        fieldsErrors.forEach((el) => {
+                            formikHelpers.setFieldError(el.field, el.error);
+                        });
+                    }
+                });
         },
     });
 
@@ -92,7 +102,12 @@ export const Login = () => {
                                     />
                                 }
                             />
-                            <Button type={"submit"} variant={"contained"} color={"primary"}>
+                            <Button
+                                disabled={!!formik.errors.email || !!formik.errors.password}
+                                type={"submit"}
+                                variant={"contained"}
+                                color={"primary"}
+                            >
                                 Login
                             </Button>
                         </FormGroup>

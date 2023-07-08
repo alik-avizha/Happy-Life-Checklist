@@ -1,43 +1,47 @@
-import { useAppDispatch, useAppSelector } from "app/store";
 import { useCallback } from "react";
 import { FilterType, todolistActions, todolistThunks } from "../../todolistReducer";
 import { tasksThunks } from "features/TodolistList/Todlist/Task/tasksReducer";
 import { TaskStatuses } from "common/enums/enums";
+import { useActions } from "common/hooks/useActions";
+import { useSelector } from "react-redux";
+import { selectTasks } from "features/TodolistList/Todlist/Task/tasks.selectors";
 
 export const useTodolist = (todoId: string, title: string, filter: FilterType) => {
-    const tasks = useAppSelector((state) => state.tasks[todoId]);
+    const tasks = useSelector(selectTasks)[todoId];
+    const { deleteTodolists, changeTodolistTitle: changeTodolistTitleThunk } = useActions(todolistThunks);
+    const { addTasks } = useActions(tasksThunks);
 
-    const dispatch = useAppDispatch();
+    const { changeTodolistFilter } = useActions(todolistActions);
 
     let filteredTasks = tasks;
 
     const addTaskHandler = useCallback(
         (title: string) => {
-            dispatch(tasksThunks.addTasks({ todolistId: todoId, title }));
+            addTasks({ todolistId: todoId, title });
         },
-        [todoId, dispatch]
+        [todoId]
     );
 
     const deleteTodoListHandler = useCallback(() => {
-        dispatch(todolistThunks.deleteTodolists({ todolistId: todoId }));
-    }, [dispatch, todoId]);
+        deleteTodolists({ todolistId: todoId });
+    }, [todoId]);
 
     const changeTodoListTitle = useCallback(
         (title: string) => {
-            dispatch(todolistThunks.changeTodolistTitle({ todolistId: todoId, title }));
+            changeTodolistTitleThunk({ todolistId: todoId, title });
         },
-        [dispatch, todoId]
+        [todoId]
     );
 
     const onClickAllHandler = useCallback(() => {
-        dispatch(todolistActions.changeTodolistFilter({ todolistId: todoId, filter: "All" }));
-    }, [dispatch, todoId]);
+        changeTodolistFilter({ todolistId: todoId, filter: "All" });
+    }, [todoId]);
     const onClickActiveHandler = useCallback(() => {
-        dispatch(todolistActions.changeTodolistFilter({ todolistId: todoId, filter: "Active" }));
-    }, [dispatch, todoId]);
+        changeTodolistFilter({ todolistId: todoId, filter: "Active" });
+    }, [todoId]);
     const onClickCompletedHandler = useCallback(() => {
-        dispatch(todolistActions.changeTodolistFilter({ todolistId: todoId, filter: "Completed" }));
-    }, [dispatch, todoId]);
+        changeTodolistFilter({ todolistId: todoId, filter: "Completed" });
+    }, [todoId]);
 
     if (filter === "Active") {
         filteredTasks = tasks.filter((f) => f.status === TaskStatuses.New);

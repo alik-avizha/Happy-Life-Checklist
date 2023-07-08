@@ -8,9 +8,10 @@ import Checkbox from "@mui/material/Checkbox";
 import { EditableSpan } from "common/components/editableSpan/EditableSpan";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { AppRootType, useAppDispatch } from "app/store";
-import { TaskDomainType, tasksThunks } from "./tasksReducer";
+import { tasksThunks } from "./tasksReducer";
 import { TaskStatuses } from "common/enums/enums";
+import { useActions } from "common/hooks";
+import { selectTasks } from "features/TodolistList/Todlist/Task/tasks.selectors";
 
 const meta: Meta<typeof Task> = {
     title: "TodoLists/Task",
@@ -23,35 +24,30 @@ export default meta;
 type Story = StoryObj<typeof Task>;
 
 const TaskWithRedux = () => {
-    let task = useSelector<AppRootType, TaskDomainType>((state) => state.tasks["todolistId1"][0]);
+    let task = useSelector(selectTasks)["todolistId1"][0];
+    const { updateTask } = useActions(tasksThunks);
 
     let todoId = "todolistId1";
 
-    const dispatch = useAppDispatch();
-
     const onChangeStatusTask = (e: ChangeEvent<HTMLInputElement>) => {
-        dispatch(
-            tasksThunks.updateTask({
-                todolistId: todoId,
-                taskId: task.id,
-                data: e.currentTarget.checked ? { status: TaskStatuses.Completed } : { status: TaskStatuses.New },
-            })
-        );
+        updateTask({
+            todolistId: todoId,
+            taskId: task.id,
+            data: e.currentTarget.checked ? { status: TaskStatuses.Completed } : { status: TaskStatuses.New },
+        });
     };
 
     const onChangeTitle = useCallback(
         (newValue: string) => {
-            dispatch(
-                tasksThunks.updateTask({
-                    todolistId: todoId,
-                    taskId: task.id,
-                    data: {
-                        title: newValue,
-                    },
-                })
-            );
+            updateTask({
+                todolistId: todoId,
+                taskId: task.id,
+                data: {
+                    title: newValue,
+                },
+            });
         },
-        [dispatch, todoId, task.id]
+        [todoId, task.id]
     );
 
     return (

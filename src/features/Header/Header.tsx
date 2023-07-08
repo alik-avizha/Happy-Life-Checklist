@@ -6,16 +6,19 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import LinearProgress from "@mui/material/LinearProgress";
-import { useAppDispatch, useAppSelector } from "app/store";
-import { logoutTC } from "../Login/auth-reducer";
+import { authThunks } from "features/Login/auth-reducer";
+import { useActions } from "common/hooks/useActions";
+import { useSelector } from "react-redux";
+import { selectAppStatus } from "app/app.selectors";
+import { selectIsLoggedIn } from "features/Login/auth.selectors";
 
 export const Header = () => {
-    const status = useAppSelector((state) => state.app.status);
-    const isLoggedIn = useAppSelector((state) => state.auth.isLoggedIn);
-    const dispatch = useAppDispatch();
+    const status = useSelector(selectAppStatus);
+    const isLoggedIn = useSelector(selectIsLoggedIn);
+    const { logout } = useActions(authThunks);
 
     const logoutHandler = () => {
-        dispatch(logoutTC());
+        logout();
     };
     return (
         <AppBar position="static">

@@ -6,6 +6,7 @@ import { TaskPriorities, TaskStatuses } from "common/enums/enums";
 import { ResultCode } from "common/apiSettings/common.api";
 import { createAppAsyncThunk, handleServerAppError, handleServerNetworkError } from "common/utils";
 import { clearTasksAndTodolists } from "common/clearTaskAndTodo/clearTaskAndTodo";
+import { thunkTryCatch } from "common/utils/thunk-try-catch";
 
 const slice = createSlice({
     name: "tasks",
@@ -82,8 +83,7 @@ const addTasks = createAppAsyncThunk<{ task: TaskTypeAPI }, { todolistId: string
     "tasks/addTask",
     async (arg, thunkAPI) => {
         const { dispatch, rejectWithValue } = thunkAPI;
-        try {
-            dispatch(appActions.setAppStatus({ status: "loading" }));
+        return thunkTryCatch(thunkAPI, async () => {
             const res = await tasksAPI.createTask(arg.todolistId, arg.title);
             if (res.data.resultCode === ResultCode.success) {
                 dispatch(appActions.setAppStatus({ status: "succeeded" }));
@@ -92,21 +92,22 @@ const addTasks = createAppAsyncThunk<{ task: TaskTypeAPI }, { todolistId: string
                 handleServerAppError(res.data, dispatch);
                 return rejectWithValue(null);
             }
-        } catch (err) {
-            handleServerNetworkError(err, dispatch);
-            return rejectWithValue(null);
-        }
+        });
     }
 );
+
 const updateTask = createAppAsyncThunk<
     { todolistId: string; taskId: string; data: UpdateTaskModelFlex },
     { todolistId: string; taskId: string; data: UpdateTaskModelFlex }
 >("tasks/updateTask", async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue, getState } = thunkAPI;
-    try {
-        dispatch(appActions.setAppStatus({ status: "loading" }));
+    return thunkTryCatch(thunkAPI, async () => {
         dispatch(
-            tasksActions.changeEntityStatus({ todolistId: arg.todolistId, taskId: arg.taskId, status: "loading" })
+            tasksActions.changeEntityStatus({
+                todolistId: arg.todolistId,
+                taskId: arg.taskId,
+                status: "loading",
+            })
         );
         const task = getState().tasks[arg.todolistId].find((t) => t.id === arg.taskId);
         if (!task) {
@@ -116,44 +117,43 @@ const updateTask = createAppAsyncThunk<
         const res = await tasksAPI.updateTask(arg.todolistId, arg.taskId, model);
         if (res.data.resultCode === ResultCode.success) {
             dispatch(appActions.setAppStatus({ status: "succeeded" }));
+            dispatch(
+                tasksActions.changeEntityStatus({
+                    todolistId: arg.todolistId,
+                    taskId: arg.taskId,
+                    status: "idle",
+                })
+            );
             return { todolistId: arg.todolistId, taskId: arg.taskId, data: arg.data };
         } else {
             handleServerAppError(res.data, dispatch);
+            dispatch(
+                tasksActions.changeEntityStatus({ todolistId: arg.todolistId, taskId: arg.taskId, status: "idle" })
+            );
             return rejectWithValue(null);
         }
-    } catch (err) {
-        handleServerNetworkError(err, dispatch);
-        return rejectWithValue(null);
-    } finally {
-        dispatch(tasksActions.changeEntityStatus({ todolistId: arg.todolistId, taskId: arg.taskId, status: "idle" }));
-    }
+    });
 });
 
 const deleteTask = createAppAsyncThunk<{ todolistId: string; taskId: string }, { todolistId: string; taskId: string }>(
     "tasks/removeTask",
     async (arg, thunkAPI) => {
         const { dispatch, rejectWithValue } = thunkAPI;
-        try {
-            dispatch(appActions.setAppStatus({ status: "loading" }));
+        return thunkTryCatch(thunkAPI, async () => {
             dispatch(
                 tasksActions.changeEntityStatus({ todolistId: arg.todolistId, taskId: arg.taskId, status: "loading" })
             );
             const res = await tasksAPI.deleteTask(arg.todolistId, arg.taskId);
             if (res.data.resultCode === ResultCode.success) {
                 dispatch(appActions.setAppStatus({ status: "succeeded" }));
+                tasksActions.changeEntityStatus({ todolistId: arg.todolistId, taskId: arg.taskId, status: "idle" });
                 return arg;
             } else {
                 handleServerAppError(res.data, dispatch);
+                tasksActions.changeEntityStatus({ todolistId: arg.todolistId, taskId: arg.taskId, status: "idle" });
                 return rejectWithValue(null);
             }
-        } catch (err) {
-            handleServerNetworkError(err, dispatch);
-            return rejectWithValue(null);
-        } finally {
-            dispatch(
-                tasksActions.changeEntityStatus({ todolistId: arg.todolistId, taskId: arg.taskId, status: "idle" })
-            );
-        }
+        });
     }
 );
 
