@@ -11,7 +11,7 @@ import { FormikHelpers, useFormik } from "formik";
 import { Navigate } from "react-router-dom";
 import { authThunks } from "features/routing/auth/model/auth.slice";
 import { useSelector } from "react-redux";
-import { selectIsLoggedIn } from "features/routing/auth/model/auth.selectors";
+import { selectIsCaptcha, selectIsLoggedIn } from "features/routing/auth/model/auth.selectors";
 import { useActions } from "common/hooks";
 import { LoginDataType } from "features/routing/auth/api/auth.api";
 import { ResponseType } from "common/types";
@@ -21,6 +21,7 @@ export type FormikErrorType = Partial<Omit<LoginDataType, "captcha">>;
 export const Login = () => {
     const { login } = useActions(authThunks);
     const isLoggedIn = useSelector(selectIsLoggedIn);
+    const captcha = useSelector(selectIsCaptcha);
 
     const formik = useFormik({
         initialValues: {
@@ -99,6 +100,16 @@ export const Login = () => {
                                     />
                                 }
                             />
+                            {captcha && (
+                                <>
+                                    <TextField
+                                        label="enter captcha"
+                                        margin="normal"
+                                        {...formik.getFieldProps("captcha")}
+                                    />
+                                    <img src={`${captcha}`} alt="captcha img" />
+                                </>
+                            )}
                             <Button
                                 disabled={!(formik.isValid && formik.dirty)}
                                 type={"submit"}

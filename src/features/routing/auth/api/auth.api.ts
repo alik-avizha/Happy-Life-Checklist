@@ -17,6 +17,9 @@ export const authAPI = {
     logout() {
         return instance.delete<ResponseType>(`auth/login`);
     },
+    getCaptchaUrl() {
+        return instance.get<{ url: string }>(`security/get-captcha-url`);
+    },
 };
 //typing
 export type LoginDataType = {

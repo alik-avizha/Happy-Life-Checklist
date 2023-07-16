@@ -158,7 +158,6 @@ export const DeleteTask = () => {
             {JSON.stringify(state)}
             <input placeholder={"todoId"} value={todoId} onChange={(e) => setTodoId(e.currentTarget.value)} />
             <input placeholder={"taskId"} value={taskId} onChange={(e) => setTaskId(e.currentTarget.value)} />
-
             <button onClick={deleteTask}>createTasks</button>
         </div>
     );

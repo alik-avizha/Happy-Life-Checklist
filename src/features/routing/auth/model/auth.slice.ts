@@ -9,6 +9,7 @@ const slice = createSlice({
     initialState: {
         isLoggedIn: false,
         isInitialized: false,
+        captcha: "",
     },
     reducers: {
         setIsInitialised: (state, action: PayloadAction<{ value: boolean }>) => {
@@ -16,27 +17,38 @@ const slice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(login.fulfilled, (state, action) => {
-            state.isLoggedIn = action.payload.value;
-        });
-        builder.addCase(logout.fulfilled, (state, action) => {
-            state.isLoggedIn = action.payload.value;
-        });
-        builder.addCase(initializeApp.fulfilled, (state, action) => {
-            state.isLoggedIn = action.payload.value;
-        });
+        builder
+            .addCase(login.fulfilled, (state, action) => {
+                state.isLoggedIn = action.payload.value;
+            })
+            .addCase(logout.fulfilled, (state, action) => {
+                state.isLoggedIn = action.payload.value;
+            })
+            .addCase(initializeApp.fulfilled, (state, action) => {
+                state.isLoggedIn = action.payload.value;
+            })
+            .addCase(getCaptchaUrl.fulfilled, (state, action) => {
+                state.captcha = action.payload.captcha;
+            });
     },
 });
 // thunks
-const login = createAppAsyncThunk<{ value: boolean }, LoginDataType>("auth/auth", async (arg, { rejectWithValue }) => {
-    const res = await authAPI.login(arg);
-    if (res.data.resultCode === ResultCode.success) {
-        return { value: true };
-    } else {
-        const isShowAppError = !res.data.fieldsErrors.length;
-        return rejectWithValue({ data: res.data, showGlobalError: isShowAppError });
+const login = createAppAsyncThunk<{ value: boolean }, LoginDataType>(
+    "auth/auth",
+    async (arg, { rejectWithValue, dispatch }) => {
+        const res = await authAPI.login(arg);
+        if (res.data.resultCode === ResultCode.success) {
+            return { value: true };
+        } else if (res.data.resultCode === ResultCode.captcha) {
+            dispatch(getCaptchaUrl());
+            return rejectWithValue(null);
+        } else {
+            const isShowAppError = !res.data.fieldsErrors.length;
+            return rejectWithValue({ data: res.data, showGlobalError: isShowAppError });
+        }
     }
-});
+);
+
 const logout = createAppAsyncThunk<{ value: boolean }, void>(
     "auth/logout",
     async (_, { dispatch, rejectWithValue }) => {
@@ -50,20 +62,26 @@ const logout = createAppAsyncThunk<{ value: boolean }, void>(
     }
 );
 
-const initializeApp = createAppAsyncThunk<{ value: boolean }, void>("auth/initializeApp", async (arg, thunkAPI) => {
+const initializeApp = createAppAsyncThunk<{ value: boolean }, any>("auth/initializeApp", async (arg, thunkAPI) => {
     const { dispatch, rejectWithValue } = thunkAPI;
     try {
         const res = await authAPI.me();
         if (res.data.resultCode === ResultCode.success) {
             return { value: true };
         } else {
-            return rejectWithValue(null);
+            return rejectWithValue({ data: res.data, showGlobalError: false });
         }
     } catch (err) {
         return rejectWithValue(null);
     } finally {
         dispatch(authActions.setIsInitialised({ value: true }));
     }
+});
+
+const getCaptchaUrl = createAppAsyncThunk<{ captcha: string }, void>("auth/getCaptchaUrl", async () => {
+    const res = await authAPI.getCaptchaUrl();
+    const captchaUrl = res.data.url;
+    return { captcha: captchaUrl };
 });
 
 export const authSlice = slice.reducer;
