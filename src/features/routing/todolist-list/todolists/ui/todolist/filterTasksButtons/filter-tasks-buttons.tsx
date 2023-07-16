@@ -18,10 +18,11 @@ export const FilterTasksButtons = (props: PropsType) => {
     };
 
     return (
-        <div>
+        <div style={{ paddingTop: "10px", display: "flex", justifyContent: "space-between" }}>
             <Button
                 color="primary"
                 variant={props.todolist.filter === "All" ? "contained" : "outlined"}
+                size={"small"}
                 onClick={() => onClickFilterHandler("All")}
             >
                 All
@@ -29,6 +30,7 @@ export const FilterTasksButtons = (props: PropsType) => {
             <Button
                 color="secondary"
                 variant={props.todolist.filter === "Active" ? "contained" : "outlined"}
+                size={"small"}
                 onClick={() => onClickFilterHandler("Active")}
             >
                 Active
@@ -36,6 +38,7 @@ export const FilterTasksButtons = (props: PropsType) => {
             <Button
                 color="error"
                 variant={props.todolist.filter === "Completed" ? "contained" : "outlined"}
+                size={"small"}
                 onClick={() => onClickFilterHandler("Completed")}
             >
                 Completed

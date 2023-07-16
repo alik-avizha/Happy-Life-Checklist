@@ -24,15 +24,21 @@ export const TodolistTitle = (props: PropsType) => {
     );
 
     return (
-        <h3>
-            <EditableSpan
-                title={props.todoInfo.title}
-                onChange={changeTodoListTitle}
+        <div>
+            <IconButton
+                onClick={deleteTodoListHandler}
                 disabled={props.todoInfo.entityStatus === "loading"}
-            />
-            <IconButton onClick={deleteTodoListHandler} disabled={props.todoInfo.entityStatus === "loading"}>
+                style={{ position: "absolute", right: "5px", top: "0px" }}
+            >
                 <DeleteIcon />
             </IconButton>
-        </h3>
+            <h3>
+                <EditableSpan
+                    title={props.todoInfo.title}
+                    onChange={changeTodoListTitle}
+                    disabled={props.todoInfo.entityStatus === "loading"}
+                />
+            </h3>
+        </div>
     );
 };

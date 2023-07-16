@@ -24,7 +24,12 @@ export const AddItemForm = memo((props: PropsType) => {
                 helperText={error}
                 disabled={props.disabled}
             />
-            <IconButton color="primary" onClick={addItemHandler} disabled={props.disabled}>
+            <IconButton
+                color="primary"
+                onClick={addItemHandler}
+                disabled={props.disabled}
+                style={{ marginLeft: "5px" }}
+            >
                 {" "}
                 <AddBox />
             </IconButton>

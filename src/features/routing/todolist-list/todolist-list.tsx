@@ -32,13 +32,13 @@ export const TodolistList = () => {
             <Grid container style={{ padding: "20px" }}>
                 <AddItemForm addItem={addTodoListCallback} />
             </Grid>
-            <Grid container spacing={3}>
+            <Grid container spacing={3} style={{ flexWrap: "nowrap", overflowX: "scroll" }}>
                 {todoLists.map((el) => {
                     return (
                         <Grid item key={el.id}>
-                            <Paper style={{ padding: "10px" }}>
+                            <div style={{ width: "300px" }}>
                                 <Todolist todoInfo={el} />
-                            </Paper>
+                            </div>
                         </Grid>
                     );
                 })}

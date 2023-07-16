@@ -86,4 +86,4 @@ const getCaptchaUrl = createAppAsyncThunk<{ captcha: string }, void>("auth/getCa
 
 export const authSlice = slice.reducer;
 export const authActions = slice.actions;
-export const authThunks = { login, logout, initializeApp };
+export const authThunks = { login, logout, initializeApp, getCaptchaUrl };

@@ -5,6 +5,7 @@ import {
     todolistSlice,
     todolistThunks,
 } from "features/routing/todolist-list/todolists/model/todolist.slice";
+import { RequestStatusType } from "app/model/app.slice";
 
 let todolistId1: string;
 let todolistId2: string;
@@ -29,7 +30,7 @@ test("correct todoList should be removed", () => {
     expect(endState.length).toBe(1);
     expect(endState[0].id).toBe(todolistId2);
 });
-test("correct todoList should be add", () => {
+test("correct todoList should be added", () => {
     const endState = todolistSlice(
         startState,
         todolistThunks.addTodolist.fulfilled(
@@ -43,8 +44,7 @@ test("correct todoList should be add", () => {
     expect(endState[0].title).toBe("What to do");
     expect(endState.length).not.toBe(startState.length);
 });
-
-test("correct todoList should be changed Filter", () => {
+test("correct filter of todolist should be changed", () => {
     const endState = todolistSlice(
         startState,
         todolistActions.changeTodolistFilter({ todolistId: todolistId2, filter: "Completed" })
@@ -53,8 +53,7 @@ test("correct todoList should be changed Filter", () => {
     expect(endState.length).toBe(2);
     expect(endState[1].filter).toBe("Completed");
 });
-
-test("correct todoList should be changed Title", () => {
+test("correct todolist should change its name", () => {
     const endState = todolistSlice(
         startState,
         todolistThunks.changeTodolistTitle.fulfilled({ todolistId: todolistId2, title: "Hello Friend" }, "requestId", {
@@ -64,4 +63,14 @@ test("correct todoList should be changed Title", () => {
     );
     expect(endState.length).toBe(2);
     expect(endState[1].title).toBe("Hello Friend");
+});
+test("correct entity status of todolist should be changed", () => {
+    let newStatus: RequestStatusType = "loading";
+
+    const action = todolistActions.changeTodolistEntityStatus({ todolistId: todolistId2, status: newStatus });
+
+    const endState = todolistSlice(startState, action);
+
+    expect(endState[0].entityStatus).toBe("idle");
+    expect(endState[1].entityStatus).toBe(newStatus);
 });

@@ -34,7 +34,7 @@ export const Task = memo((props: PropsType) => {
     );
 
     return (
-        <div className={props.task.status === TaskStatuses.Completed ? s.isDone : ""}>
+        <div className={props.task.status === TaskStatuses.Completed ? s.isDone : ""} style={{ position: "relative" }}>
             <Checkbox
                 checked={props.task.status === TaskStatuses.Completed}
                 onChange={onChangeStatusTask}
@@ -45,8 +45,12 @@ export const Task = memo((props: PropsType) => {
                 onChange={onChangeTitle}
                 disabled={props.task.entityStatus === "loading"}
             />
-            <IconButton onClick={deleteHandler} disabled={props.task.entityStatus === "loading"}>
-                <DeleteIcon />
+            <IconButton
+                onClick={deleteHandler}
+                disabled={props.task.entityStatus === "loading"}
+                style={{ position: "absolute", top: "2px", right: "2px" }}
+            >
+                <DeleteIcon fontSize={"small"} />
             </IconButton>
         </div>
     );

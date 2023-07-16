@@ -6,6 +6,7 @@ import { Tasks } from "features/routing/todolist-list/todolists/ui/todolist/task
 import { FilterTasksButtons } from "features/routing/todolist-list/todolists/ui/todolist/filterTasksButtons/filter-tasks-buttons";
 import { useActions } from "common/hooks";
 import { tasksThunks } from "features/routing/todolist-list/tasks/model/tasks.slice";
+import Paper from "@mui/material/Paper";
 
 type PropsType = {
     todoInfo: TodolistDomainType;
@@ -24,11 +25,11 @@ export const Todolist = (props: PropsType) => {
     );
 
     return (
-        <div>
+        <Paper style={{ padding: "10px", position: "relative" }}>
             <TodolistTitle todoInfo={props.todoInfo} />
             <AddItemForm addItem={addTaskCallback} disabled={entityStatus === "loading"} />
             <Tasks todolist={props.todoInfo} />
             <FilterTasksButtons todolist={props.todoInfo} />
-        </div>
+        </Paper>
     );
 };

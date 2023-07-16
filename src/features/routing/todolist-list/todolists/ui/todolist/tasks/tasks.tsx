@@ -25,6 +25,7 @@ export const Tasks = (props: PropsType) => {
             {filteredTasks.map((t) => {
                 return <Task key={t.id} todoId={props.todolist.id} task={t} />;
             })}
+            {filteredTasks.length === 0 && <div style={{ padding: "10px", color: "gray" }}>No tasks</div>}
         </div>
     );
 };
