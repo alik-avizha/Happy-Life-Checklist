@@ -1,8 +1,8 @@
 import { handleServerNetworkError } from "common/utils/handle-server-network-error";
 import { BaseThunkAPI } from "@reduxjs/toolkit/dist/createAsyncThunk";
 import { AppDispatchType, AppRootType } from "app/store";
-import { ResponseType } from "common/apiSettings/common.api";
-import { appActions } from "app/app-reducer";
+import { appActions } from "app/model/app.reducer";
+import { ResponseType } from "common/types";
 
 /**
  Wraps an async thunk with try-catch logic and dispatches actions to update the app status state.

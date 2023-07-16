@@ -1,6 +1,6 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AppDispatchType, AppRootType } from "app/store";
-import { ResponseType } from "common/apiSettings/common.api";
+import { ResponseType } from "common/types";
 
 /**
  Creates an async thunk with specified types for the state, dispatch, and reject value.
