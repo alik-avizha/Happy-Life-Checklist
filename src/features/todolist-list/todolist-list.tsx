@@ -16,8 +16,6 @@ export const TodolistList = () => {
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const { fetchTodolists, addTodolist: addTodolistThunk } = useActions(todolistThunks);
 
-    console.log(todoLists);
-
     useEffect(() => {
         if (!isLoggedIn) return;
         fetchTodolists({});

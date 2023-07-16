@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
-import { Task } from "features/todolist-list/todolists/ui/todolist/task/task";
+import { Task } from "features/todolist-list/todolists/ui/todolist/tasks/task/task";
 import { ReduxStoreProviderDecorator } from "stories/decorators/ReduxStoreProviderDecorator";
 import { useSelector } from "react-redux";
 import React, { ChangeEvent, useCallback } from "react";
