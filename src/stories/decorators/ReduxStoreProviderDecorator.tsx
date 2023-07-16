@@ -2,20 +2,20 @@ import React from "react";
 import { Provider } from "react-redux";
 import { combineReducers } from "redux";
 import { v1 } from "uuid";
-import { tasksReducer } from "features/todolist-list/tasks/model/tasks.reducer";
-import { todolistReducer } from "features/todolist-list/todolists/model/todolist.reducer";
+import { tasksSlice } from "features/routing/todolist-list/tasks/model/tasks.slice";
+import { todolistSlice } from "features/routing/todolist-list/todolists/model/todolist.slice";
 import { AppRootType } from "app/store";
-import { appReducer } from "app/model/app.reducer";
-import { authReducer } from "features/auth/model/auth.reducer";
+import { appSlice } from "app/model/app.slice";
+import { authSlice } from "features/routing/auth/model/auth.slice";
 import { HashRouter } from "react-router-dom";
 import { configureStore } from "@reduxjs/toolkit";
 import { TaskPriorities, TaskStatuses } from "common/enums/enums";
 
 const rootReducer = combineReducers({
-    todolists: todolistReducer,
-    tasks: tasksReducer,
-    app: appReducer,
-    auth: authReducer,
+    todolists: todolistSlice,
+    tasks: tasksSlice,
+    app: appSlice,
+    auth: authSlice,
 });
 
 const initialGlobalState: AppRootType = {

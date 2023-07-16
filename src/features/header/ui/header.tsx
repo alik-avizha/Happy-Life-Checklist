@@ -8,9 +8,9 @@ import Button from "@mui/material/Button";
 import LinearProgress from "@mui/material/LinearProgress";
 import { selectAppStatus } from "app/model/app.selectors";
 import { useSelector } from "react-redux";
-import { selectIsLoggedIn } from "features/auth/model/auth.selectors";
+import { selectIsLoggedIn } from "features/routing/auth/model/auth.selectors";
 import { useActions } from "common/hooks";
-import { authThunks } from "features/auth/model/auth.reducer";
+import { authThunks } from "features/routing/auth/model/auth.slice";
 
 export const Header = () => {
     const status = useSelector(selectAppStatus);

@@ -4,12 +4,12 @@ import { AddBox } from "@mui/icons-material";
 import IconButton from "@mui/material/IconButton";
 import { useAddItemForm } from "common/components/add-item-form/hooks/use-add-item-form";
 
-type AddItemFormPropsType = {
+type PropsType = {
     addItem: (title: string) => Promise<any>;
     disabled?: boolean;
 };
 
-export const AddItemForm = memo((props: AddItemFormPropsType) => {
+export const AddItemForm = memo((props: PropsType) => {
     const { title, error, addItemHandler, onChangeItemHandler, onKeyDownHandler } = useAddItemForm(props.addItem);
 
     return (
