@@ -18,7 +18,7 @@ export const Todolist = (props: PropsType) => {
 
     const addTaskCallback = useCallback(
         (title: string) => {
-            addTasks({ todolistId: id, title });
+            return addTasks({ todolistId: id, title }).unwrap();
         },
         [id]
     );

@@ -14,15 +14,15 @@ import { todolistThunks } from "features/todolist-list/todolists/model/todolist.
 export const TodolistList = () => {
     const todoLists = useSelector(selectTodolists);
     const isLoggedIn = useSelector(selectIsLoggedIn);
-    const { fetchTodolists, addTodolist: addTodolistThunk } = useActions(todolistThunks);
+    const { fetchTodolists, addTodolist } = useActions(todolistThunks);
 
     useEffect(() => {
         if (!isLoggedIn) return;
         fetchTodolists({});
     }, []);
 
-    const addTodoList = useCallback((title: string) => {
-        addTodolistThunk({ title });
+    const addTodoListCallback = useCallback((title: string) => {
+        return addTodolist({ title }).unwrap();
     }, []);
 
     if (!isLoggedIn) return <Navigate to={"/login"} />;
@@ -30,7 +30,7 @@ export const TodolistList = () => {
     return (
         <Container fixed>
             <Grid container style={{ padding: "20px" }}>
-                <AddItemForm addItem={addTodoList} />
+                <AddItemForm addItem={addTodoListCallback} />
             </Grid>
             <Grid container spacing={3}>
                 {todoLists.map((el) => {

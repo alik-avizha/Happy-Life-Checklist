@@ -5,26 +5,26 @@ import IconButton from "@mui/material/IconButton";
 import { useAddItemForm } from "common/components/add-item-form/hooks/use-add-item-form";
 
 type AddItemFormPropsType = {
-    addItem: (title: string) => void;
+    addItem: (title: string) => Promise<any>;
     disabled?: boolean;
 };
 
 export const AddItemForm = memo((props: AddItemFormPropsType) => {
-    const { title, error, addTaskHandler, onChangeTaskHandler, onKeyDownHandler } = useAddItemForm(props.addItem);
+    const { title, error, addItemHandler, onChangeItemHandler, onKeyDownHandler } = useAddItemForm(props.addItem);
 
     return (
         <div>
             <TextField
                 variant="outlined"
                 value={title}
-                onChange={onChangeTaskHandler}
+                onChange={onChangeItemHandler}
                 onKeyDown={onKeyDownHandler}
                 error={!!error}
                 label="Enter your task"
                 helperText={error}
                 disabled={props.disabled}
             />
-            <IconButton color="primary" onClick={addTaskHandler} disabled={props.disabled}>
+            <IconButton color="primary" onClick={addItemHandler} disabled={props.disabled}>
                 {" "}
                 <AddBox />
             </IconButton>

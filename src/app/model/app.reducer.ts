@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AnyAction, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const slice = createSlice({
     name: "app",
@@ -13,6 +13,44 @@ const slice = createSlice({
         setAppError: (state, action: PayloadAction<{ error: null | string }>) => {
             state.error = action.payload.error;
         },
+    },
+    extraReducers: (builder) => {
+        builder
+            .addMatcher(
+                (action) => {
+                    return action.type.endsWith("/pending");
+                },
+                (state) => {
+                    state.status = "loading";
+                }
+            )
+            .addMatcher(
+                (action: AnyAction) => {
+                    return action.type.endsWith("/rejected");
+                },
+                (state, action) => {
+                    state.status = "failed";
+
+                    const { payload, error } = action;
+                    if (payload) {
+                        if (payload.showGlobalError) {
+                            state.error = payload.data.messages.length
+                                ? payload.data.messages[0]
+                                : "Some error occurred";
+                        }
+                    } else {
+                        state.error = error.message ? error.message : "Some error occurred";
+                    }
+                }
+            )
+            .addMatcher(
+                (action) => {
+                    return action.type.endsWith("/fulfilled");
+                },
+                (state) => {
+                    state.status = "succeeded";
+                }
+            );
     },
 });
 
