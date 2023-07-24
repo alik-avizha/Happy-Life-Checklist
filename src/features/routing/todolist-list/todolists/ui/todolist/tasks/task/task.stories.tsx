@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import { action } from "@storybook/addon-actions";
 import { Task } from "features/routing/todolist-list/todolists/ui/todolist/tasks/task/task";
-import { ReduxStoreProviderDecorator } from "stories/decorators/ReduxStoreProviderDecorator";
+import { ReduxStoreProviderDecorator } from "app/decorators/ReduxStoreProviderDecorator";
 import { useSelector } from "react-redux";
 import React, { ChangeEvent, useCallback } from "react";
 import Checkbox from "@mui/material/Checkbox";

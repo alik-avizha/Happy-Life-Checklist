@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react";
 import React from "react";
 import { FormikErrorType, Login } from "features/routing/auth/ui/login/login";
-import { ReduxStoreProviderDecorator } from "stories/decorators/ReduxStoreProviderDecorator";
+import { ReduxStoreProviderDecorator } from "app/decorators/ReduxStoreProviderDecorator";
 import Checkbox from "@mui/material/Checkbox";
 import { useFormik } from "formik";
 import Grid from "@mui/material/Grid";
