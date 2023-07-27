@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/Happy-Life-Checklist/static/css/main.b2224f03.css",
-    "main.js": "/Happy-Life-Checklist/static/js/main.5c6ced0d.js",
+    "main.js": "/Happy-Life-Checklist/static/js/main.c86e5176.js",
     "index.html": "/Happy-Life-Checklist/index.html",
     "main.b2224f03.css.map": "/Happy-Life-Checklist/static/css/main.b2224f03.css.map",
-    "main.5c6ced0d.js.map": "/Happy-Life-Checklist/static/js/main.5c6ced0d.js.map"
+    "main.c86e5176.js.map": "/Happy-Life-Checklist/static/js/main.c86e5176.js.map"
   },
   "entrypoints": [
     "static/css/main.b2224f03.css",
-    "static/js/main.5c6ced0d.js"
+    "static/js/main.c86e5176.js"
   ]
 }
