@@ -1,7 +1,6 @@
 import Container from "@mui/material/Container";
 import Grid from "@mui/material/Grid";
 import { AddItemForm } from "common/components/add-item-form/add-item-form";
-import Paper from "@mui/material/Paper";
 import { Todolist } from "features/routing/todolist-list/todolists/ui/todolist/todolist";
 import React, { useCallback, useEffect } from "react";
 import { Navigate } from "react-router-dom";
@@ -32,7 +31,7 @@ export const TodolistList = () => {
             <Grid container style={{ padding: "20px" }}>
                 <AddItemForm addItem={addTodoListCallback} />
             </Grid>
-            <Grid container spacing={3} style={{ flexWrap: "nowrap", overflowX: "scroll" }}>
+            <Grid container spacing={3} style={{ flexWrap: "nowrap", paddingBottom: '40px', overflowX: "scroll" }}>
                 {todoLists.map((el) => {
                     return (
                         <Grid item key={el.id}>
