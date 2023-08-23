@@ -28,10 +28,10 @@ export const TodolistList = () => {
 
     return (
         <Container fixed>
-            <Grid container style={{ padding: "20px" }}>
+            <Grid container style={{ padding: "20px 0 40px 0"}}>
                 <AddItemForm addItem={addTodoListCallback} />
             </Grid>
-            <Grid container spacing={3} style={{ flexWrap: "nowrap", paddingBottom: '40px', overflowX: "scroll" }}>
+            <Grid container spacing={3}>
                 {todoLists.map((el) => {
                     return (
                         <Grid item key={el.id}>

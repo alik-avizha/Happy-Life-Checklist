@@ -27,7 +27,7 @@ export const Login = () => {
         initialValues: {
             email: "",
             password: "",
-            rememberMe: false,
+            rememberMe: false
         },
         validate: (values) => {
             const errors: FormikErrorType = {};
@@ -46,7 +46,8 @@ export const Login = () => {
         onSubmit: (values, formikHelpers: FormikHelpers<LoginDataType>) => {
             login(values)
                 .unwrap()
-                .then(() => {})
+                .then(() => {
+                })
                 .catch((reason: ResponseType) => {
                     const { fieldsErrors } = reason;
                     if (fieldsErrors) {
@@ -55,7 +56,7 @@ export const Login = () => {
                         });
                     }
                 });
-        },
+        }
     });
 
     if (isLoggedIn) {

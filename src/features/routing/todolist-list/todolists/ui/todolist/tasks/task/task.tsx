@@ -6,7 +6,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import { TaskDomainType, tasksThunks } from "features/routing/todolist-list/tasks/model/tasks.slice";
 import { TaskStatuses } from "common/enums/enums";
 import { useActions } from "common/hooks";
-import s from "features/routing/todolist-list/todolists/ui/todolist/tasks/task/task.module.css";
+import s from "./task.module.css";
 
 type PropsType = {
     todoId: string;
@@ -22,7 +22,7 @@ export const Task = memo((props: PropsType) => {
         updateTask({
             todolistId: props.todoId,
             taskId: props.task.id,
-            data: e.currentTarget.checked ? { status: TaskStatuses.Completed } : { status: TaskStatuses.New },
+            data: e.currentTarget.checked ? { status: TaskStatuses.Completed } : { status: TaskStatuses.New }
         });
     };
 
@@ -33,18 +33,23 @@ export const Task = memo((props: PropsType) => {
         [props.todoId, props.task.id]
     );
 
+    const isDoneStyle = props.task.status === TaskStatuses.Completed ? s.isDone : ''
+
+
     return (
-        <div className={props.task.status === TaskStatuses.Completed ? s.isDone : ""} style={{ position: "relative" }}>
+        <div className={`${s.taskWrapper} ${isDoneStyle}`}>
             <Checkbox
                 checked={props.task.status === TaskStatuses.Completed}
                 onChange={onChangeStatusTask}
                 disabled={props.task.entityStatus === "loading"}
             />
-            <EditableSpan
-                title={props.task.title}
-                onChange={onChangeTitle}
-                disabled={props.task.entityStatus === "loading"}
-            />
+            <div className={s.taskTitle}>
+                <EditableSpan
+                    title={props.task.title}
+                    onChange={onChangeTitle}
+                    disabled={props.task.entityStatus === "loading"}
+                />
+            </div>
             <IconButton
                 onClick={deleteHandler}
                 disabled={props.task.entityStatus === "loading"}

@@ -21,7 +21,7 @@ export const Tasks = (props: PropsType) => {
     }
 
     return (
-        <div>
+        <div style={{marginTop: '10px'}}>
             {filteredTasks.map((t) => {
                 return <Task key={t.id} todoId={props.todolist.id} task={t} />;
             })}

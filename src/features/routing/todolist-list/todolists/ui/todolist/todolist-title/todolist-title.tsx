@@ -4,6 +4,7 @@ import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { TodolistDomainType, todolistThunks } from "features/routing/todolist-list/todolists/model/todolist.slice";
 import { useActions } from "common/hooks";
+import s from "./todolist-title.module.css";
 
 type PropsType = {
     todoInfo: TodolistDomainType;
@@ -24,21 +25,21 @@ export const TodolistTitle = (props: PropsType) => {
     );
 
     return (
-        <div>
-            <IconButton
-                onClick={deleteTodoListHandler}
-                disabled={props.todoInfo.entityStatus === "loading"}
-                style={{ position: "absolute", right: "5px", top: "0px" }}
-            >
-                <DeleteIcon />
-            </IconButton>
-            <h3>
+
+        <div className={s.titleWrapper}>
+            <h3 className={s.title}>
                 <EditableSpan
                     title={props.todoInfo.title}
                     onChange={changeTodoListTitle}
                     disabled={props.todoInfo.entityStatus === "loading"}
                 />
             </h3>
+            <IconButton
+                onClick={deleteTodoListHandler}
+                disabled={props.todoInfo.entityStatus === "loading"}
+            >
+                <DeleteIcon />
+            </IconButton>
         </div>
     );
 };

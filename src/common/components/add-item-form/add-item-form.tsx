@@ -23,6 +23,7 @@ export const AddItemForm = memo((props: PropsType) => {
                 label="Enter your task"
                 helperText={error}
                 disabled={props.disabled}
+                style={{width: '230px'}}
             />
             <IconButton
                 color="primary"
