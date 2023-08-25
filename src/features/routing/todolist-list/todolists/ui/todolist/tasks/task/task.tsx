@@ -55,7 +55,7 @@ export const Task = memo((props: PropsType) => {
                 disabled={props.task.entityStatus === "loading"}
                 style={{ position: "absolute", top: "2px", right: "2px" }}
             >
-                <DeleteIcon fontSize={"small"} />
+                <DeleteIcon fontSize={"small"}  />
             </IconButton>
         </div>
     );

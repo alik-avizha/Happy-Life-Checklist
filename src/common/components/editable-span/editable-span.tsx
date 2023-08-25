@@ -9,14 +9,14 @@ type PropsType = {
 };
 
 export const EditableSpan = memo((props: PropsType) => {
-    const { editMode, title, activateEditMode, activateViewMode, onChangeHandler } = useEditableSpan(
+    const { editMode, title, activateEditMode, activateViewMode, onChangeHandler, onEnterPressed } = useEditableSpan(
         props.title,
         props.onChange,
         props.disabled
     );
 
     return editMode ? (
-        <TextField value={title} autoFocus onBlur={activateViewMode} onChange={onChangeHandler} />
+        <TextField value={title} autoFocus onBlur={activateViewMode} onChange={onChangeHandler} onKeyDown={onEnterPressed} />
     ) : (
         <span onDoubleClick={activateEditMode}>{props.title}</span>
     );

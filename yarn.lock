@@ -2054,6 +2054,11 @@
   resolved "https://registry.yarnpkg.com/@fal-works/esbuild-plugin-global-externals/-/esbuild-plugin-global-externals-2.1.2.tgz#c05ed35ad82df8e6ac616c68b92c2282bd083ba4"
   integrity sha512-cEee/Z+I12mZcFJshKcCqC8tuX5hG3s+d+9nZ3LabqKF1vKdF41B92pJVCBggjAGORAeOzyyDDKrZwIkLffeOQ==
 
+"@formkit/auto-animate@^0.7.0":
+  version "0.7.0"
+  resolved "https://registry.yarnpkg.com/@formkit/auto-animate/-/auto-animate-0.7.0.tgz#7a68df578e972d63d999378571ce6e012d9059ae"
+  integrity sha512-RczHUr0AhRPssREoNdRjLfk2b/id9/DFnbIq18QM8L7E4zNV3XH+WO480EZ46BQHDEsv76YPJ0JbG2Y2i3GfXw==
+
 "@hapi/hoek@^9.0.0":
   version "9.3.0"
   resolved "https://registry.yarnpkg.com/@hapi/hoek/-/hoek-9.3.0.tgz#8368869dcb735be2e7f5cb7647de78e167a251fb"

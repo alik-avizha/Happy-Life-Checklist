@@ -1,5 +1,3 @@
-import Container from "@mui/material/Container";
-import Grid from "@mui/material/Grid";
 import { AddItemForm } from "common/components/add-item-form/add-item-form";
 import { Todolist } from "features/routing/todolist-list/todolists/ui/todolist/todolist";
 import React, { useCallback, useEffect } from "react";
@@ -9,8 +7,11 @@ import { selectIsLoggedIn } from "features/routing/auth/model/auth.selectors";
 import { selectTodolists } from "features/routing/todolist-list/todolists/model/todolist.selectors";
 import { useActions } from "common/hooks";
 import { todolistThunks } from "features/routing/todolist-list/todolists/model/todolist.slice";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
+import s from "./todolist-list.module.css";
 
 export const TodolistList = () => {
+    const [todoListsRef] = useAutoAnimate<HTMLDivElement>();
     const todoLists = useSelector(selectTodolists);
     const isLoggedIn = useSelector(selectIsLoggedIn);
     const { fetchTodolists, addTodolist } = useActions(todolistThunks);
@@ -24,24 +25,18 @@ export const TodolistList = () => {
         return addTodolist({ title }).unwrap();
     }, []);
 
+    const todoListsRender = todoLists.map(el => <div key={el.id}>
+        <Todolist todoInfo={el} />
+    </div>);
+
     if (!isLoggedIn) return <Navigate to={"/login"} />;
 
     return (
-        <Container fixed>
-            <Grid container style={{ padding: "20px 0 40px 0"}}>
+        <>
+            <div className={s.addTodolistContainer}>
                 <AddItemForm addItem={addTodoListCallback} />
-            </Grid>
-            <Grid container spacing={3}>
-                {todoLists.map((el) => {
-                    return (
-                        <Grid item key={el.id}>
-                            <div style={{ width: "300px" }}>
-                                <Todolist todoInfo={el} />
-                            </div>
-                        </Grid>
-                    );
-                })}
-            </Grid>
-        </Container>
+            </div>
+            <div ref={todoListsRef} className={s.todolistList}>{todoListsRender}</div>
+        </>
     );
 };

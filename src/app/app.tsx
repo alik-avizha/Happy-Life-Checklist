@@ -6,6 +6,7 @@ import CircularProgress from "@mui/material/CircularProgress";
 import { authThunks } from "features/routing/auth/model/auth.slice";
 import { useActions } from "common/hooks/use-actions";
 import { useSelector } from "react-redux";
+import Container from '@mui/material/Container';
 import { selectIsInitialized } from "features/routing/auth/model/auth.selectors";
 import { Routing } from "features/routing/routing";
 
@@ -29,7 +30,9 @@ export function App() {
         <div className="App">
             <ErrorSnackBar />
             <Header />
+            <Container maxWidth={'lg'}>
             <Routing />
+            </Container>
         </div>
     );
 }

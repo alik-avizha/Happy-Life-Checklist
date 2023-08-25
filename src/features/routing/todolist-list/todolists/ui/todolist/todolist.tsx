@@ -25,7 +25,7 @@ export const Todolist = (props: PropsType) => {
     );
 
     return (
-        <Paper style={{ padding: "10px"}}>
+        <Paper elevation={5} sx={{ padding: '20px' }} style={{ padding: "10px"}}>
             <TodolistTitle todoInfo={props.todoInfo} />
             <AddItemForm addItem={addTaskCallback} disabled={entityStatus === "loading"} />
             <Tasks todolist={props.todoInfo} />
