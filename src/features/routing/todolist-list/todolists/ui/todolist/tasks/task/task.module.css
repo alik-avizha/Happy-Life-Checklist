@@ -4,7 +4,7 @@
     align-items: center;
 }
 .isDone {
-    opacity: 0.5;
+    text-decoration: line-through;
 }
 .taskTitle{
     display: inline-block;

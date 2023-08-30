@@ -26,6 +26,7 @@ export const AddItemForm = memo((props: PropsType) => {
                 style={{ width: "230px" }}
             />
             <IconButton
+                aria-label={'add-item'}
                 color="primary"
                 onClick={addItemHandler}
                 disabled={props.disabled}

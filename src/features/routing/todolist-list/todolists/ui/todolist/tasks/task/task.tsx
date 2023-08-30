@@ -39,6 +39,7 @@ export const Task = memo((props: PropsType) => {
     return (
         <div className={`${s.taskWrapper} ${isDoneStyle}`}>
             <Checkbox
+                id={`taskCheckbox_${props.task.id}`}
                 checked={props.task.status === TaskStatuses.Completed}
                 onChange={onChangeStatusTask}
                 disabled={props.task.entityStatus === "loading"}
@@ -52,6 +53,7 @@ export const Task = memo((props: PropsType) => {
             </div>
             <IconButton
                 onClick={deleteHandler}
+                aria-label={'delete-item'}
                 disabled={props.task.entityStatus === "loading"}
                 style={{ position: "absolute", top: "2px", right: "2px" }}
             >

@@ -36,6 +36,7 @@ export const TodolistTitle = (props: PropsType) => {
             </h3>
             <IconButton
                 onClick={deleteTodoListHandler}
+                aria-label={'delete-item'}
                 disabled={props.todoInfo.entityStatus === "loading"}
             >
                 <DeleteIcon />
