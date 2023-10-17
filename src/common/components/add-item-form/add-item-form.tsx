@@ -24,15 +24,27 @@ export const AddItemForm = memo((props: PropsType) => {
                 helperText={error}
                 disabled={props.disabled}
                 style={{ width: "230px" }}
+
+                sx={{
+                    "& .MuiOutlinedInput-root": {
+                        borderColor: "white"
+                    },
+                    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                        borderColor: "white"
+                    },
+                    "& input": {
+                        color: "white"
+                    }
+                }}
             />
             <IconButton
-                aria-label={'add-item'}
+                aria-label={"add-item"}
                 color="primary"
                 onClick={addItemHandler}
                 disabled={props.disabled}
-                style={{ marginLeft: "5px" }}
+                style={{ marginLeft: "5px", color: "white" }}
             >
-                <AddBox/>
+                <AddBox />
             </IconButton>
         </div>
     );

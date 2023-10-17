@@ -4,10 +4,11 @@
     align-items: center;
 }
 .isDone {
-    text-decoration: line-through;
+    text-decoration: line-through white;
 }
 .taskTitle{
     display: inline-block;
     width: 200px;
     word-wrap: break-word;
+    color: white;
 }

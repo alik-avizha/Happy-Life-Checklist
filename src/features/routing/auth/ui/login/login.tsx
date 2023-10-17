@@ -69,19 +69,29 @@ export const Login = () => {
                 <form onSubmit={formik.handleSubmit}>
                     <FormControl>
                         <FormLabel>
-                            <p>
-                                To log in get registered
-                                <a href={"https://social-network.samuraijs.com/"} target={"_blank"}>
-                                    {" "}
+                            <p style={{ color: "white" }}>
+                                To log in get registered{" "}
+                                <a href={"https://social-network.samuraijs.com/"} target={"_blank"}
+                                   style={{ color: "white" }}>
                                     here
                                 </a>
                             </p>
-                            <p>or use common test account credentials:</p>
-                            <p>Email: free@samuraijs.com</p>
-                            <p>Password: free</p>
+                            <p style={{ color: "white" }}>or use common test account credentials:</p>
+                            <p style={{ color: "white" }}>Email: free@samuraijs.com</p>
+                            <p style={{ color: "white" }}>Password: free</p>
                         </FormLabel>
                         <FormGroup>
-                            <TextField label="Email" margin="normal" {...formik.getFieldProps("email")} />
+                            <TextField label="Email" margin="normal" {...formik.getFieldProps("email")} sx={{
+                                "& .MuiOutlinedInput-root": {
+                                    borderColor: "white"
+                                },
+                                "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                    borderColor: "white"
+                                },
+                                "& input": {
+                                    color: "white"
+                                }
+                            }} />
                             {formik.touched.email && formik.errors.email && (
                                 <div style={{ color: "red" }}>{formik.errors.email}</div>
                             )}
@@ -90,6 +100,17 @@ export const Login = () => {
                                 label="Password"
                                 margin="normal"
                                 {...formik.getFieldProps("password")}
+                                sx={{
+                                    "& .MuiOutlinedInput-root": {
+                                        borderColor: "white",
+                                        "& input": {
+                                            color: "white" // Цвет вводимого текста
+                                        }
+                                    },
+                                    "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                        borderColor: "white"
+                                    }
+                                }}
                             />
                             {formik.touched.password && <div style={{ color: "red" }}>{formik.errors.password}</div>}
                             <FormControlLabel
@@ -106,6 +127,17 @@ export const Login = () => {
                                     <TextField
                                         label="enter captcha"
                                         margin="normal"
+                                        sx={{
+                                            "& .MuiOutlinedInput-root": {
+                                                borderColor: "white"
+                                            },
+                                            "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                                                borderColor: "white"
+                                            },
+                                            "& input": {
+                                                color: "white"
+                                            }
+                                        }}
                                         {...formik.getFieldProps("captcha")}
                                     />
                                     <img src={`${captcha}`} alt="captcha img" />
@@ -115,7 +147,7 @@ export const Login = () => {
                                 disabled={!(formik.isValid && formik.dirty)}
                                 type={"submit"}
                                 variant={"contained"}
-                                color={"primary"}
+                                color={"secondary"}
                             >
                                 Login
                             </Button>

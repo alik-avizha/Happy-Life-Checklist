@@ -3,7 +3,11 @@
 
 https://alik-avizha.github.io/Happy-Life-Checklist/
 
-Todolist is a simple and easy-to-use task management app to help you organise your day. It allows you to create a to-do list, helping you to be more organised and efficient.
+Todolist is a simple and easy-to-use task management app to help you organise your day. It allows you to create to-do lists, helping you to be more organised and efficient.
+If you don't want to register, please enter the following details:
+- email: free@samuraijs.com
+- password: free
+
 ![](src/assets/images/loginPage.png)
 
 There are main sections in the app. Here you can create a to-do list

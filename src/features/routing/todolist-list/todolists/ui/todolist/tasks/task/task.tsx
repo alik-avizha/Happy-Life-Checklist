@@ -54,8 +54,9 @@ export const Task = memo((props: PropsType) => {
             <IconButton
                 onClick={deleteHandler}
                 aria-label={'delete-item'}
+                color="primary"
                 disabled={props.task.entityStatus === "loading"}
-                style={{ position: "absolute", top: "2px", right: "2px" }}
+                style={{ position: "absolute", top: "2px", right: "2px", color: 'white' }}
             >
                 <DeleteIcon fontSize={"small"}  />
             </IconButton>

@@ -20,8 +20,10 @@ export const Header = () => {
     const logoutHandler = () => {
         logout({});
     };
+
+
     return (
-        <AppBar position="static">
+        <AppBar position="static" sx={{backgroundColor: '#2f3349'}}>
             <Toolbar>
                 <IconButton size="large" edge="start" color="inherit" aria-label="menu" sx={{ mr: 2 }}>
                     <MenuIcon />
