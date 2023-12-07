@@ -90,6 +90,9 @@ export const Login = () => {
                                 },
                                 "& input": {
                                     color: "white"
+                                },
+                                "& .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {
+                                    color: "white"
                                 }
                             }} />
                             {formik.touched.email && formik.errors.email && (
@@ -104,8 +107,11 @@ export const Login = () => {
                                     "& .MuiOutlinedInput-root": {
                                         borderColor: "white",
                                         "& input": {
-                                            color: "white" // Цвет вводимого текста
-                                        }
+                                            color: "white"
+                                        },
+                                    },
+                                    "& .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {
+                                        color: "white"
                                     },
                                     "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline": {
                                         borderColor: "white"

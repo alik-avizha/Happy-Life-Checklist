@@ -34,6 +34,9 @@ export const AddItemForm = memo((props: PropsType) => {
                     },
                     "& input": {
                         color: "white"
+                    },
+                    "& .css-14s5rfu-MuiFormLabel-root-MuiInputLabel-root": {
+                        color: "white"
                     }
                 }}
             />
